@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', '+*cxgh*p=3m7sx)c#jh8at06ad4@gcsb5=e7yfflq6$of#)yy$')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = os.getenv('DEBUG', 'false').strip().lower() == 'true'
 
 ALLOWED_HOSTS = ['*', ]
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'enroll',
 ]
 
 MIDDLEWARE = [
