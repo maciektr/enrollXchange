@@ -131,8 +131,8 @@ dmypy.json
 .pyre/
 
 
-# Created by https://www.toptal.com/developers/gitignore/api/python,django,intellij+all,vscode,vim,osx,windows,linux,react,reactnative,web,venv
-# Edit at https://www.toptal.com/developers/gitignore?templates=python,django,intellij+all,vscode,vim,osx,windows,linux,react,reactnative,web,venv
+# Created by https://www.toptal.com/developers/gitignore/api/python,django,intellij+all,vscode,vim,osx,windows,linux,react,reactnative,venv
+# Edit at https://www.toptal.com/developers/gitignore?templates=python,django,intellij+all,vscode,vim,osx,windows,linux,react,reactnative,venv
 
 ### Django ###
 *.log
@@ -825,21 +825,6 @@ tags
 !.vscode/extensions.json
 *.code-workspace
 
-### Web ###
-*.asp
-*.cer
-*.csr
-*.css
-*.htm
-*.html
-*.js
-*.jsp
-*.php
-*.rss
-*.wasm
-*.wat
-*.xhtml
-
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -866,4 +851,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/python,django,intellij+all,vscode,vim,osx,windows,linux,react,reactnative,web,venv
+# End of https://www.toptal.com/developers/gitignore/api/python,django,intellij+all,vscode,vim,osx,windows,linux,react,reactnative,venv
