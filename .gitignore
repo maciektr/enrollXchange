@@ -1,5 +1,9 @@
 .env
 
+# React build folder 
+/frontend/static/
+
+# General
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
