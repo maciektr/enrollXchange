@@ -17,6 +17,5 @@ COPY requirements.txt /code/
 COPY frontend/package.json /code/frontend/package.json
 
 RUN pip install -r requirements.txt
-RUN cd frontend && yarn install
 
 COPY . /code/
