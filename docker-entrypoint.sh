@@ -1,4 +1,5 @@
 python manage.py migrate
+( cd frontend ; yarn install )
 if [ "$ENVIROMENT" = "local" ]; then
   (cd frontend ; yarn dev )
 else
