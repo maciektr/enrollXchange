@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Home from "./Home";
 
 class App extends Component {
   constructor(props) {
@@ -13,9 +15,13 @@ class App extends Component {
 
   render() {
     return (
-        <p>
-            Hello from react!
-        </p>
+        <Router>
+          <Switch>
+            <div>
+              <Route exact path='/' component={Home} />
+            </div>
+          </Switch>
+        </Router>
     );
   }
 }
