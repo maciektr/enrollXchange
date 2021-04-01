@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from "./Home";
+import Form from "./addUser/form/Form";
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class App extends Component {
           <Switch>
             <div>
               <Route exact path='/' component={Home} />
+              <Route exact path='/addUser' component={Form}/>
             </div>
           </Switch>
         </Router>
