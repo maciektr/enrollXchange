@@ -1,6 +1,8 @@
 .env
+.envrc
+.tool-versions
 
-# React build folder 
+# React build folder
 /frontend/static/
 
 # General

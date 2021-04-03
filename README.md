@@ -13,6 +13,8 @@ This project has a docker-compose.yml file which contains the necessary external
 ```shell script
 docker-compose up
 ```
+Alternatively, you can follow the [local setup instruction here](https://github.com/jakubsolecki/enrollXchange/tree/main/docs/local_setup.md).
+
 Now you can visit [localhost:8000](127.0.0.1:8000) from your browser.
 
 ### Docker setup
