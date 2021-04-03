@@ -12,7 +12,7 @@ For RedHat based (e.g. Fedora) run:
 ```shell
 $ sudo dnf install direnv
 ```
-For OSX (using [homebrew](https://formulae.brew.sh/formula/pipenv)):
+For OSX (using [homebrew](https://formulae.brew.sh/)):
 ```shell
 brew install direnv
 ```
@@ -31,7 +31,7 @@ direnv: export +DB_HOST +DB_NAME +DB_PASSWORD +DB_PORT +DB_USER +DEBUG +ENVIROME
 ### Python dependencies
 Make sure you have both `python3` and `pip` installed in your system.
 
-You should install your project dependencies to a virtual enviroment to seperate them from your global installation. You will need [virtualenv](https://pypi.org/project/virtualenv/) for this. First, install it by running:
+You should install your project dependencies to a virtual enviroment to seperate them from your global installation. You will need [virtualenv](https://pypi.org/project/virtualenv/) for this, install it by running:
 ```shell
 python -m pip install --user virtualenv
 ```
