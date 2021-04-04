@@ -46,7 +46,7 @@ jobs:
         - name: Install requirements
           run: pip install -r requirements.txt
         - name: Check Syntax
-          run: pycodestyle --statistics .
+          run: pycodestyle .
         - name: Run Migrations
           run: python manage.py migrate
         - name: Run Test
