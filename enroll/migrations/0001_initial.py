@@ -51,6 +51,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('day', enroll.fields.DayOfTheWeekField(choices=[('1', 'Monday'), ('2', 'Tuesday'), ('3', 'Wednesday'), ('4', 'Thursday'), ('5', 'Friday'), ('6', 'Saturday'), ('7', 'Sunday')], max_length=1)),
+                ('frequency', models.PositiveSmallIntegerField(choices=[(1, 'every week'), (2, 'week a'), (3, 'week b'), (4, 'other')])),
                 ('start', models.TimeField()),
                 ('duration_minutes', models.PositiveIntegerField()),
                 ('seats', models.PositiveIntegerField()),

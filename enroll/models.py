@@ -38,7 +38,14 @@ class Course(models.Model):
 
 
 class ClassTime(models.Model):
+    class FrequencyType(models.IntegerChoices):
+        EVERY_WEEK = 1, 'every week'
+        A_WEEK = 2, 'week a'
+        B_WEEK = 3, 'week b'
+        OTHER = 4, 'other'
+
     day = DayOfTheWeekField(null=False)
+    frequency = models.PositiveSmallIntegerField(choices=FrequencyType.choices)
     start = models.TimeField(null=False, auto_now=False)
     duration_minutes = models.PositiveIntegerField()
     course = models.ForeignKey(Course, null=True, on_delete=models.CASCADE)

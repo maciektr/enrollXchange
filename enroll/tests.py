@@ -62,6 +62,7 @@ class EnrollmentTestCase(UserTestCase):
         super().setUp()
         self.time = ClassTime.objects.create(
             day='1',
+            frequency=ClassTime.FrequencyType.EVERY_WEEK,
             start=dt.time(),
             duration_minutes=0,
             seats=0,
@@ -88,6 +89,7 @@ class ClassTimeCase(TestCase):
         duration = 10
         ct = ClassTime.objects.create(
             day='1',
+            frequency=ClassTime.FrequencyType.EVERY_WEEK,
             start=time,
             duration_minutes=duration,
             seats=0,
