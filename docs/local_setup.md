@@ -1,13 +1,13 @@
 # Local development setup
-Alternatively to using docker, you can setup the app development enviroment locally.
+Alternatively to using docker, you can setup the app development environment locally.
 
 ### Clone project and fill .env
 Follow instructions from [main README](https://github.com/jakubsolecki/enrollXchange/blob/main/README.md).
 
 Change `DB_HOST` variable in `.env` file to `127.0.0.1`.
 
-### Enviromental variables
-You will need to install [direnv](https://direnv.net/) in your system for enviromental variables managment.
+### Environmental variables
+You will need to install [direnv](https://direnv.net/) in your system for environmental variables managment.
 For RedHat based (e.g. Fedora) run:
 ```shell
 $ sudo dnf install direnv
@@ -26,12 +26,12 @@ direnv allow
 You should see output similar to:
 ```shell
 direnv: loading ~/Documents/Projects/enrollXchange/.envrc
-direnv: export +DB_HOST +DB_NAME +DB_PASSWORD +DB_PORT +DB_USER +DEBUG +ENVIROMENT +GUNICORN_LOG_LEVEL +SECRET_KEY
+direnv: export +DB_HOST +DB_NAME +DB_PASSWORD +DB_PORT +DB_USER +DEBUG +ENVIRONMENT +GUNICORN_LOG_LEVEL +SECRET_KEY
 ```
 ### Python dependencies
 Make sure you have both `python3` and `pip` installed in your system.
 
-You should install your project dependencies to a virtual enviroment to seperate them from your global installation. You will need [virtualenv](https://pypi.org/project/virtualenv/) for this, install it by running:
+You should install your project dependencies to a virtual environment to seperate them from your global installation. You will need [virtualenv](https://pypi.org/project/virtualenv/) for this, install it by running:
 ```shell
 python -m pip install --user virtualenv
 ```
