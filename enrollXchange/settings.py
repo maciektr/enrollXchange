@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*', ]
 # Application definition
 
 INSTALLED_APPS = [
+    # Django default
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,8 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Other
     'livereload',
+    'graphene_django',
+    'graphql_auth',
+    'django_filters',
 
+    # Project apps
     'enroll',
     'frontend',
 ]
@@ -74,6 +80,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'enrollXchange.wsgi.application'
+
+# GraphQL
+
+GRAPHENE = {
+    'SCHEMA': 'enroll.schema.schema'
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -110,6 +122,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Email backend
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 if (not DEBUG) and ENVIRONMENT == 'prod':
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -143,6 +157,8 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Heroku
 
 if not DEBUG:
     # Configure Django App for Heroku.
