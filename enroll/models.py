@@ -50,7 +50,8 @@ class ClassTime(models.Model):
         return time_plus_minutes(self.start, self.duration_minutes)
 
     def __str__(self):
-        return self.course.__str__() + ' | ' + DAY_OF_THE_WEEK[self.day] + ' ' + self.start.strftime('%H:%M')
+        return self.course.__str__() + ' | ' + DAY_OF_THE_WEEK[self.day] + \
+               ' ' + self.start.strftime('%H:%M')
 
 
 class Enrollment(models.Model):

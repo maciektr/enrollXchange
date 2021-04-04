@@ -10,7 +10,8 @@ from enroll.utils import time_plus_minutes
 class UtilsTestCase(TestCase):
     def test_time_plus_minutes(self):
         """
-        Assert time_plus_minutes helper functions returns correct result of time + minutes calculation.
+        Assert time_plus_minutes helper functions returns correct
+        result of time + minutes calculation.
         """
         time = dt.time()
         self.assertEqual(time, time_plus_minutes(time, 0))
@@ -46,7 +47,8 @@ class LecturerTestCase(UserTestCase):
 
     def test_lecturer_account_validator(self):
         """
-        Assert that ValidationError is raised when Lecturer account has user_type different than teacher.
+        Assert that ValidationError is raised when Lecturer account
+        has user_type different than teacher.
         """
         Lecturer.objects.create(account=self.teacher).clean()
         with self.assertRaises(ValidationError):
@@ -79,7 +81,8 @@ class EnrollmentTestCase(UserTestCase):
 class ClassTimeCase(TestCase):
     def test_end_property(self):
         """
-        Assert that ClassTime.end property returns correct end time (ClassTime.start + ClassTime.duration_minutes).
+        Assert that ClassTime.end property returns correct end time
+        (ClassTime.start + ClassTime.duration_minutes).
         """
         time = dt.time(hour=23, minute=59)
         duration = 10
