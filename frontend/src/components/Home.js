@@ -7,7 +7,7 @@ const Home = () => {
         <div className="container red-background">
             <div className="row">
                 <div className="col-12 text-center">
-                    Homepage :D
+                    Dupa :D
                 </div>
             </div>
             <div className="row-cols-1 text-center mt-5">
