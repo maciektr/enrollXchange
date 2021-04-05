@@ -33,7 +33,7 @@ const GridFullcalendar = () => {
                 allDaySlot={false}
                 dayHeaderFormat={{weekday: 'short'}}
                 slotMinTime='08:00:00'
-                slotMaxTime='21:00:00'
+                slotMaxTime='20:00:00'
                 eventClick={handleEventClick}
                 slotEventOverlap={false}
                 expandRows={true}

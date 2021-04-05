@@ -1,5 +1,6 @@
 import React from "react";
 import Grid from "./Grid";
+import Offer from "./Offer";
 
 const MySchedule = () => {
     return (
@@ -10,6 +11,10 @@ const MySchedule = () => {
             <div className="row-cols-1">
                 <Grid />
             </div>
+            <div className="row-cols-1 text-center mt-4">
+                <h2>Moje oferty</h2>
+            </div>
+            <Offer />
 
         </div>
     )
