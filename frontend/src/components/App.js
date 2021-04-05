@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from "./Home";
-import MySchedule from "./MySchedule";
+import MySchedule from "./MySchedule/MySchedule";
 
 class App extends Component {
   constructor(props) {
