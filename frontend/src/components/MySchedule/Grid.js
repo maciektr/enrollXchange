@@ -1,11 +1,17 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import {data} from './MockData'
 
 const GridFullcalendar = () => {
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        //TODO fetch data from real api
+        setEvents(data);
+    })
+
     const handleEventClick= (props) => {
-        // console.log(props.event.extendedProps);
         alert(props.event.title);
     }
 
@@ -31,7 +37,7 @@ const GridFullcalendar = () => {
                 eventClick={handleEventClick}
                 slotEventOverlap={false}
                 expandRows={true}
-                events={data}
+                events={events}
             />
         </div>
     )
