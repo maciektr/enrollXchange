@@ -1,9 +1,10 @@
 import React from "react";
 import {Button} from "react-bootstrap";
+import '../styles/styles.css'
 
 const Home = () => {
     return (
-        <div className="container">
+        <div className="container red-background">
             <div className="row">
                 <div className="col-12 text-center">
                     Homepage :D
