@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from "./Home";
+import MySchedule from "./MySchedule";
 
 class App extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class App extends Component {
         <Router>
           <Switch>
               <Route exact path='/' component={Home} />
+              <Route path='/my-schedule' component={MySchedule} />
           </Switch>
         </Router>
     );
