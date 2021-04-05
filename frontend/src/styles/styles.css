@@ -1,3 +1,7 @@
 .red-background {
     background-color: red;
 }
+
+#app {
+    height: 100vh;
+}

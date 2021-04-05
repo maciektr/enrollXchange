@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from "./Home";
+import LoginPage from "./LoginPage";
+import '../styles/styles.css'
 
 class App extends Component {
   constructor(props) {
@@ -18,6 +20,7 @@ class App extends Component {
         <Router>
           <Switch>
               <Route exact path='/' component={Home} />
+              <Route exact path='/login' component={LoginPage} />
           </Switch>
         </Router>
     );
