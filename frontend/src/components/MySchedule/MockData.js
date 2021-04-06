@@ -1,4 +1,4 @@
-const data = [
+const classes = [
     {
         title: 'Systemy rozproszone, K. Zieliński - W',
         start: '2021-03-01T08:00:00',
@@ -79,4 +79,47 @@ const data = [
     },
 ];
 
-export {data};
+const myOffers = [
+    {
+        id: 1,
+        comment: "Dam czekolade",
+        currentClass: {
+            day: "Piątek",
+            title: 'Systemy wbudowane, A. Broza - L',
+            start: '2021-03-05T14:40:00',
+            end: '2021-03-05T16:10:00',
+        },
+        exchange_to: [
+            {
+                title: 'Systemy wbudowane, A. Broza - L',
+                start: '2021-03-05T12:50:00',
+                end: '2021-03-05T14:20:00',
+            }
+        ]
+    },
+    {
+        id: 2,
+        comment: "",
+        currentClass: {
+            day: "Piątek",
+            title: 'Systemy rozproszone, F. Malawski - L',
+            start: '2021-03-05T12:50:00',
+            end: '2021-03-05T14:20:00',
+        },
+        exchange_to: [
+            {
+                title: 'Systemy rozproszone, F. Malawski - L',
+                start: '2021-03-04T12:50:00',
+                end: '2021-03-04T14:20:00',
+            },
+            {
+                title: 'Systemy rozproszone, Ł. Czekierda - L',
+                start: '2021-03-04T08:00:00',
+                end: '2021-03-04T09:30:00',
+            }
+        ]
+    }
+
+]
+
+export {classes, myOffers};

@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 const Home = () => {
     return (
-        <div className="container red-background">
+        <div className="container test-wrap">
             <div className="row">
                 <div className="col-12 text-center">
                     Homepage :D

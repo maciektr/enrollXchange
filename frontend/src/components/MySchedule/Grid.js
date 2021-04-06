@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from "react";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import {data} from './MockData'
+import {classes} from './MockData'
 
 const GridFullcalendar = () => {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
         //TODO fetch data from real api
-        setEvents(data);
-    })
+        setEvents(classes);
+    }, [])
 
     const handleEventClick= (props) => {
         alert(props.event.title);
