@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Button} from "react-bootstrap";
-import '../styles/styles.css'
+import '../../styles/styles.css'
 
-const Home = () => {
+const Market = () => {
     return (
         <div className="container cyan-background">
             <div className="row">
@@ -18,4 +18,4 @@ const Home = () => {
     )
 }
 
-export default Home;
+export default Market;
