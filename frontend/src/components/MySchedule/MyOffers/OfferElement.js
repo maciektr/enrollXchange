@@ -1,12 +1,15 @@
 import React, {useState} from "react";
-import '../../styles/offer.css'
+import '../../../styles/my-offers.css'
 import {Button} from "react-bootstrap";
 import {SlideDown} from 'react-slidedown'
 import 'react-slidedown/lib/slidedown.css'
+import TargetClassElement from "./TargetClassElement";
 
 const OfferElement = ({props}) => {
-    console.log(props);
+    const [closed, setClosed] = useState(true);
+    const handleClick = () => setClosed(prevState => !prevState)
 
+    const htmlList = props.exchange_to.map(element => <TargetClassElement props={element} key={element.id} />);
     return (
         <>
             <div className="row mt-3">
@@ -22,7 +25,9 @@ const OfferElement = ({props}) => {
                             {new Date(props.currentClass.end).getHours()}:{new Date(props.currentClass.end).getMinutes()}
                         </span>
                         <span className="ml-5">
-                            <Button variant="success" className="mr-3">Więcej</Button>
+                            <Button variant="success" className="mr-3" onClick={handleClick}>
+                                {closed ? "Więcej" : "Zamknij"}
+                            </Button>
                             <Button variant="danger">Usuń</Button>
                         </span>
                     </div>
@@ -30,15 +35,9 @@ const OfferElement = ({props}) => {
             </div>
             <div className="row">
                 <div className="col-8 offset-2 slider">
-                    <SlideDown className={'my-dropdown-slidedown'}>
-                        <ul>
-                            <li>kasdasd</li>
-                            <li>kasdasd</li>
-                            <li>kasdasd</li>
-                            <li>kasdasd</li>
-                            <li>kasdasd</li>
-                            <li>kasdasd</li>
-
+                    <SlideDown className={'my-dropdown-slidedown'} closed={closed}>
+                        <ul className="list-group list-group-mine list-group-flush">
+                            {htmlList}
                         </ul>
                     </SlideDown>
                 </div>

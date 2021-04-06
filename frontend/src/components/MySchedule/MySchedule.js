@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "./Grid";
-import Offers from "./Offers";
+import Offers from "./MyOffers/Offers";
 
 const MySchedule = () => {
     return (

@@ -91,6 +91,8 @@ const myOffers = [
         },
         exchange_to: [
             {
+                id: 1,
+                day: "Piątek",
                 title: 'Systemy wbudowane, A. Broza - L',
                 start: '2021-03-05T12:50:00',
                 end: '2021-03-05T14:20:00',
@@ -108,14 +110,18 @@ const myOffers = [
         },
         exchange_to: [
             {
+                id: 2,
+                day: "Czwartek",
                 title: 'Systemy rozproszone, F. Malawski - L',
                 start: '2021-03-04T12:50:00',
                 end: '2021-03-04T14:20:00',
             },
             {
+                id: 3,
+                day: "Czwartek",
                 title: 'Systemy rozproszone, Ł. Czekierda - L',
-                start: '2021-03-04T08:00:00',
-                end: '2021-03-04T09:30:00',
+                start: '2021-03-04T14:40:00',
+                end: '2021-03-04T16:15:00',
             }
         ]
     }

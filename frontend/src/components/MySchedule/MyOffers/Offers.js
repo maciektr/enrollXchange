@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import OfferElement from "./OfferElement";
-import {myOffers} from "./MockData";
+import {myOffers} from "../MockData";
 
 const Offers = () => {
     const [offers, setOffers] = useState([]);
