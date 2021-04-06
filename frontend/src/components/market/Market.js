@@ -1,20 +1,22 @@
-import React, {useEffect, useState} from "react";
-import {Button} from "react-bootstrap";
-import '../../styles/styles.css'
+import React from "react";
+import Offers from "./Offers";
+import Filter from "./Filter";
+
 
 const Market = () => {
     return (
-        <div className="container cyan-background">
-            <div className="row">
-                <div className="col-12 text-center">
-                    Baka Mitai :D
-                </div>
+        <div className="container mt-4">
+            <div className="row-cols-1 text-center">
+                <h2>Filter</h2>
             </div>
-            <div className="row-cols-1 text-center mt-5">
-                <Button variant="primary">Primary</Button>
+            <div className="row-cols-1">
+                <Filter />
             </div>
-
-        </div>
+            <div className="row-cols-1 text-center mt-4">
+                <h2>Offers</h2>
+            </div>
+            <Offers />
+        </div> 
     )
 }
 
