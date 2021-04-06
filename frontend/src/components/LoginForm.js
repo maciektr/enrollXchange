@@ -3,11 +3,11 @@ import { Button, Form } from 'react-bootstrap';
 
 const LoginForm = () => {
     return (
-        <div>
+        <div id="box-form" style={{backgroundColor: "white", padding: '3vh', borderRadius: '1vh'}}>
             <Form>
                 <Form.Group controlId="formBasicIndex">
-                    <Form.Label>Numer indeksu</Form.Label>
-                    <Form.Control type="text" placeholder="Wpisz swój numer indeksu" />
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="text" placeholder="Wpisz swój email w domenie AGH" />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
@@ -15,9 +15,10 @@ const LoginForm = () => {
                     <Form.Control type="password" placeholder="Hasło" />
                 </Form.Group>
                 <Form.Group controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
                 </Form.Group>
-                <Button variant="primary" type="submit"> Zaloguj </Button>
+                <div className="text-center">
+                    <Button  variant="primary" type="submit"> Zaloguj </Button>
+                </div>
             </Form>
         </div>
     );

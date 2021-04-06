@@ -13,11 +13,13 @@ module.exports = {
   },
   devServer: {
     writeToDisk: true, // Write files to disk in dev mode, so Django can serve the assets
+    historyApiFallback: true,
+    contentBase: './'
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js|jsx$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
