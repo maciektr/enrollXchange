@@ -1,3 +1,7 @@
 .test-wrap {
     background-color: antiquewhite;
 }
+
+#app {
+    height: 100vh;
+}
