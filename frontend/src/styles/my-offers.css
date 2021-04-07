@@ -1,0 +1,17 @@
+.offer-element {
+    background-color: #EBEBEB;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.slider{
+    background-color: #d4d4d4;
+}
+
+.list-group-mine .list-group-item {
+    background-color: #d4d4d4;
+}
+
+.list-group-mine .list-group-item:hover {
+    background-color: #d4d4d4;
+}
