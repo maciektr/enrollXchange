@@ -14,6 +14,7 @@ const Market = () => {
 
     const handleChoice = (elem, ix) => {
         setters[ix](elem==all[ix] ? 'clear' : elem);
+        //TODO add new data request and reload current data
     }
 
     useEffect(() => {

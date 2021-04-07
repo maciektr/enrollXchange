@@ -14,6 +14,7 @@ const Offer = () => {
 
 
     return (
+        //TODO Help with the fckn css styles argh >:^(
         <div className="row mt-3">
                 {offers.map((elem) => (
                 <div key={elem['id']} className="row mt-3">
