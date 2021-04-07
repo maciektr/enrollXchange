@@ -1,42 +1,48 @@
 const data = [
     {
         id: '1',
-        title: 'Systemy rozproszone, K. Zieliński - W',
+        title: 'Systemy rozproszone',
+        lecturer: 'K. Zieliński',
         day: 'Poniedziałek',
         time: '8:00',
         comment: 'Pifo'
     },
     {
         id: '2',
-        title: 'Systemy wbudowane, A. Broza - L',
+        title: 'Systemy wbudowane',
+        lecturer: 'A. Broza',
         day: 'Piątek',
         time: '14:20',
         comment: 'Woda'
     },
     {
         id: '3',
-        title: 'UX, J. Orzeł - L',
+        title: 'UX',
+        lecturer: 'J. Orzeł',
         day: 'Wtorek',
         time: '13:30',
         comment: 'Pifo'
     },
     {
         id: '4',
-        title: 'WDIB, M. Król - P',
+        title: 'WDIB',
+        lecturer: 'M. Król',
         day: 'Środa',
         time: '16:40',
         comment: 'Pifo'
     },
     {
         id: '5',
-        title: 'Architektury, J. Kitowski - W',
+        title: 'Architektury',
+        lecturer: 'J. Kitowski',
         day: 'Czwartek',
         time: '8:00',
         comment: 'Pifo'
     },
     {
         id: '6',
-        title: 'Systemy rozproszone, K. Zieliński - W',
+        title: 'Systemy rozproszone',
+        lecturer: 'J. Kitowski',
         day: 'Poniedziałek',
         time: '8:00',
         comment: 'Pifo'
