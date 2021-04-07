@@ -1,9 +1,10 @@
 import React from 'react'
 import { Button, Form } from 'react-bootstrap';
+import '../styles/LoginForm.css'
 
 const LoginForm = () => {
     return (
-        <div id="box-form" style={{backgroundColor: "white", padding: '3vh', borderRadius: '1vh'}}>
+        <div id="box-form">
             <Form>
                 <Form.Group controlId="formBasicIndex">
                     <Form.Label>Email</Form.Label>
