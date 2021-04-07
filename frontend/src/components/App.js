@@ -25,7 +25,7 @@ class App extends Component {
               <Route exact path='/' component={Home} />
               <Route exact path='/login' component={LoginPage} />
               <Route path='/my-schedule' component={MySchedule} />
-              <Route exact path='/addUser' component={Form}/>
+              <Route path='/addUser' component={Form}/>
             </div>
           </Switch>
         </Router>
