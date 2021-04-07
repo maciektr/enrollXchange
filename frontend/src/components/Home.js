@@ -12,8 +12,8 @@ const Home = () => {
                 </div>
             </div>
             <div className="row-cols-1 text-center mt-5">
-                <Link to="/my-schedule">
-                    <Button variant="primary">Mój podział</Button>
+                <Link to="/login">
+                    <Button variant="primary">Zaloguj</Button>
                 </Link>
             </div>
 

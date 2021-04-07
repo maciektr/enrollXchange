@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Form } from 'react-bootstrap';
 import '../styles/LoginForm.css'
+import {Link} from "react-router-dom";
 
 const LoginForm = () => {
     return (
@@ -18,7 +19,9 @@ const LoginForm = () => {
                 <Form.Group controlId="formBasicCheckbox">
                 </Form.Group>
                 <div className="text-center">
-                    <Button  variant="primary" type="submit"> Zaloguj </Button>
+                    <Link to="/my-schedule">
+                        <Button  variant="primary" type="submit"> Zaloguj </Button>
+                    </Link>
                 </div>
             </Form>
         </div>
