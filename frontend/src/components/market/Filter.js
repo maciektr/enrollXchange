@@ -9,6 +9,12 @@ const Market = () => {
     const [lecturer, setLecturer] = useState([]);
     const [day, setDay] = useState([]);
     const [time, setTime] = useState([]);
+    const setters = [setSubject, setLecturer, setDay, setTime];
+    var all = [subject, lecturer, day, time];
+
+    const handleChoice = (elem, ix) => {
+        setters[ix](elem==all[ix] ? 'clear' : elem);
+    }
 
     useEffect(() => {
         //TODO Replace with fetch
@@ -25,21 +31,20 @@ const Market = () => {
     const days = offers.map((elem) => (elem['day'])).filter((v,i,a) => a.indexOf(v) === i);
     const times = offers.map((elem) => (elem['time'])).filter((v,i,a) => a.indexOf(v) === i);
     const alls = [subjects, lecturers, days, times];
-    const all = [subject, lecturer, day, time];
 
 
     return (
-        <>
+        <div className="offset-4">
             {types.map((type, ix) => (
                 <DropdownButton as={ButtonGroup} key={type} variant='primary' title={type}>
-                    {(all[ix]=='clear' ? <Dropdown.Item key='clear' active>clear</Dropdown.Item> : <Dropdown.Item key='clear'>clear</Dropdown.Item>)}
+                    {(all[ix]=='clear' ? <Dropdown.Item key='clear' onClick={() => handleChoice('clear', ix)} active>clear</Dropdown.Item> : <Dropdown.Item key='clear' onClick={() => handleChoice('clear', ix)}>clear</Dropdown.Item>)}
                     <Dropdown.Divider />
-                    {alls[ix].map((el, ix) => (
-                        (all[ix]=={el} ? (<Dropdown.Item key={el} eventKey={ix} active>{el}</Dropdown.Item>) : (<Dropdown.Item key={el} eventKey={ix}>{el}</Dropdown.Item>))
+                    {alls[ix].map((el, kix) => (
+                        (all[ix]==el ? (<Dropdown.Item key={el} eventKey={kix} onClick={() => handleChoice(el,ix)} active>{el}</Dropdown.Item>) : (<Dropdown.Item key={el} eventKey={kix} onClick={() => handleChoice(el,ix)}>{el}</Dropdown.Item>))
                     ))}
                 </DropdownButton>
             ))}
-        </>
+        </div>
     )
 }
 
