@@ -3,8 +3,14 @@ import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import {classes} from './MockData'
 
+import 'bootstrap/dist/css/bootstrap.min.css'
+import AddOfferForm from "../AddOffer/AddOfferForm";
+
+
 const GridFullcalendar = () => {
     const [events, setEvents] = useState([]);
+    const [isInfoWindowOpen, setIsInfoWindowOpen] = useState(false);
+    const [highlightedEvent, setHighLightedEvent] = useState(null);
 
     useEffect(() => {
         //TODO fetch data from real api
@@ -12,7 +18,9 @@ const GridFullcalendar = () => {
     }, [])
 
     const handleEventClick= (props) => {
-        alert(props.event.title);
+        // alert(props.event.title);
+        setHighLightedEvent(props.event)
+        setIsInfoWindowOpen(true);
     }
 
     return (
@@ -39,6 +47,14 @@ const GridFullcalendar = () => {
                 expandRows={true}
                 events={events}
             />
+
+            {isInfoWindowOpen ? 
+                <AddOfferForm
+                    show={isInfoWindowOpen}
+                    onHide={() => setIsInfoWindowOpen(false)}
+                    event={highlightedEvent}
+                />
+            : null}
         </div>
     )
 }
