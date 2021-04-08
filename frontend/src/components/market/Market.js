@@ -12,11 +12,8 @@ const Market = () => {
             <div className="row-cols-1">
                 <Filter />
             </div>
-            <div className="row-cols-1 text-center mt-4">
-                <h2>Offers</h2>
-            </div>
             <Offers />
-        </div> 
+        </div>
     )
 }
 

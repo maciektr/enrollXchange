@@ -1,42 +1,30 @@
 import React, {useEffect, useState} from "react";
 import '../../styles/offer.css'
-import {Button} from "react-bootstrap";
 import {data} from './Data'
+import Offer from "./Offer";
 
 
-const Offer = () => {
+const Offers = () => {
     const [offers, setOffers] = useState([]);
 
     useEffect(() => {
         // TODO Replace with fetch
         setOffers(data)
-    })
+    }, [])
 
+    const htmlList = offers.map((offer) => <Offer key={offer.id} props={offer} />);
 
     return (
-        //TODO Help with the fckn css styles argh >:^(
-        <div className="row mt-3">
-                {offers.map((elem) => (
-                <div key={elem['id']} className="row mt-3">
-                    <div className="col-8 offset-2 offer-element d-flex justify-content-between align-items-center">
-                        <div className="ml-4">
-                            {elem['title'] + ' - ' + elem['lecturer']}
-                        </div>
+        <>
+            <div className="row-cols-1 text-center mt-4">
+                <h2>Offers</h2>
+            </div>
+            <div className="row mt-3">
+                {htmlList}
+            </div>
+        </>
 
-                        <div className="mr-4">
-                            <span>
-                                {elem['day'] + ' ' + elem['time']}
-                            </span>
-                            <span className="ml-5">
-                                <Button variant="info" className="mr-3">Info</Button>
-                                <Button variant="success">Zaakceptuj</Button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                ))}
-        </div>
     )
 }
 
-export default Offer;
+export default Offers;
