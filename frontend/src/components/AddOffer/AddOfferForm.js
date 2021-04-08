@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Modal from 'react-bootstrap/Modal'
-import {Button, Form, Row, Container} from "react-bootstrap";
+import {Button, Form, Col} from "react-bootstrap";
 
 const weekdays = [
     "Niedziela",
@@ -34,41 +34,43 @@ const AddOfferForm = (props) => {
                 <Modal.Title>Szczegóły terminu</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Row><b>Twój termin:</b></Row>
-                <Container className="offset-0.3">
-                    <Row>{getDay(props.event.start)} </Row>
-                    <Row>{getDateString(props.event.start)} - {getDateString(props.event.end)}</Row>
-                    <Row>{props.event.title}</Row>
-                </Container>
-
-                <Row><b>Zamień swój termin:</b></Row>
-                <Form>
-                    <Form.Group controlId="AddOfferForm.daySelect">
-                        <Form.Label>Preferowany dzień zajęć</Form.Label>
-                        <Form.Control as='select' custom>
-                            <option>dowolny</option>
-                            <option>Piątek</option>
-                        </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="AddOfferForm.timeSelect">
-                        <Form.Label>Preferowany czas zajęć</Form.Label>
-                        <Form.Control as='select' custom>
-                            <option>dowolny</option>
-                            <option>8:00 - 9:30</option>
-                        </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="AddOfferForm.teacherSelect">
-                        <Form.Label>Preferowany prowadzący</Form.Label>
-                        <Form.Control as='select' custom>
-                            <option>dowolny</option>
-                            <option>Piotr Faliszewski</option>
-                        </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="AddOfferForm.commentTextArea">
-                        <Form.Label>Komentarz</Form.Label>
-                        <Form.Control as="textarea" rows={2} />
-                    </Form.Group>
-                </Form>
+                <Col>
+                    <b>Twój termin:</b>
+                    <div>{getDay(props.event.start)} </div>
+                    <div>{getDateString(props.event.start)} - {getDateString(props.event.end)}</div>
+                    <div>{props.event.title}</div>
+                </Col>
+                <hr></hr>
+                <Col>
+                    <b>Zamień swój termin:</b>
+                    <Form>
+                        <Form.Group controlId="AddOfferForm.daySelect">
+                            <Form.Label>Preferowany dzień zajęć</Form.Label>
+                            <Form.Control as='select' custom>
+                                <option>dowolny</option>
+                                <option>Piątek</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="AddOfferForm.timeSelect">
+                            <Form.Label>Preferowany czas zajęć</Form.Label>
+                            <Form.Control as='select' custom>
+                                <option>dowolny</option>
+                                <option>8:00 - 9:30</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="AddOfferForm.teacherSelect">
+                            <Form.Label>Preferowany prowadzący</Form.Label>
+                            <Form.Control as='select' custom>
+                                <option>dowolny</option>
+                                <option>Piotr Faliszewski</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="AddOfferForm.commentTextArea">
+                            <Form.Label>Komentarz</Form.Label>
+                            <Form.Control as="textarea" rows={2} />
+                        </Form.Group>
+                    </Form>
+                </Col>
                 
             </Modal.Body>
             <Modal.Footer>
