@@ -3,10 +3,25 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Modal from 'react-bootstrap/Modal'
 import {Button, Form, Row, Container} from "react-bootstrap";
 
+const weekdays = [
+    "Niedziela",
+    "Poniedziałek",
+    "Wtorek",
+    "Środa",
+    "Czwartek",
+    "Piątek",
+    "Sobota",
+]
+
 function getDateString(date) {
     let d = new Date(date);
     return d.getHours() + ":" + d.getMinutes()
-} 
+}
+
+function getDay(date) {
+    let d = new Date(date);
+    return weekdays[d.getDay()]
+}
 
 
 class AddOfferForm extends React.Component {
@@ -22,7 +37,7 @@ class AddOfferForm extends React.Component {
                 <Modal.Body>
                     <Row><b>Twój termin:</b></Row>
                     <Container className="offset-0.3">
-                        <Row>{this.props.event.day} </Row>
+                        <Row>{getDay(this.props.event.start)} </Row>
                         <Row>{getDateString(this.props.event.start)} - {getDateString(this.props.event.end)}</Row>
                         <Row>{this.props.event.title}</Row>
                     </Container>
