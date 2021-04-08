@@ -8,7 +8,7 @@ const Home = () => {
         <div className="container test-wrap">
             <div className="row">
                 <div className="col-12 text-center">
-                    Dupa :D
+                    main :D
                 </div>
             </div>
             <div className="row-cols-1 text-center mt-5">

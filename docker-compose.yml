@@ -17,7 +17,10 @@ services:
   web:
     container_name: enrollxchange_web
     restart: always
-    build: .
+    build:
+      context: .
+      args:
+        BUILDENV: local
     command: sh -c "./docker-entrypoint.sh"
     volumes:
       - .:/code

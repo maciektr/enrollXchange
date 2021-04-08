@@ -19,3 +19,7 @@ COPY frontend/package.json /code/frontend/package.json
 RUN pip install -r requirements.txt
 
 COPY . /code/
+
+RUN chmod +x /code/scripts/build.sh
+ARG BUILDENV
+RUN /code/scripts/build.sh $BUILDENV
