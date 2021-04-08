@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button} from "react-bootstrap";
 
-const Offer = ({props}) => {
+const OfferElement = ({props}) => {
     return (
         <div className="offset-2 col-8 offer-element d-flex justify-content-between align-items-center mt-4">
             <div className="ml-4">
@@ -22,4 +22,4 @@ const Offer = ({props}) => {
     )
 }
 
-export default Offer;
+export default OfferElement;

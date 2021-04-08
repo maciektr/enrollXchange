@@ -1,5 +1,5 @@
 import React from "react";
-import Offers from "./Offers";
+import OffersList from "./OffersList";
 import Filter from "./Filter";
 
 
@@ -12,7 +12,7 @@ const Market = () => {
             <div className="row-cols-1">
                 <Filter />
             </div>
-            <Offers />
+            <OffersList />
         </div>
     )
 }

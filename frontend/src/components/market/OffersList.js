@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import '../../styles/offer.css'
 import {data} from './Data'
-import Offer from "./Offer";
+import OfferElement from "./OfferElement";
 
 
-const Offers = () => {
+const OffersList = () => {
     const [offers, setOffers] = useState([]);
 
     useEffect(() => {
@@ -12,7 +12,7 @@ const Offers = () => {
         setOffers(data)
     }, [])
 
-    const htmlList = offers.map((offer) => <Offer key={offer.id} props={offer} />);
+    const htmlList = offers.map((offer) => <OfferElement key={offer.id} props={offer} />);
 
     return (
         <>
@@ -27,4 +27,4 @@ const Offers = () => {
     )
 }
 
-export default Offers;
+export default OffersList;
