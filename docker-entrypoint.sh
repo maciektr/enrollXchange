@@ -1,3 +1,4 @@
+echo "$ENVIRONMENT"
 if [ "$ENVIRONMENT" = "local" ]; then
   echo "Running locally"
 fi
