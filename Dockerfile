@@ -20,6 +20,6 @@ RUN pip install -r requirements.txt
 
 COPY . /code/
 
-RUN chmod +x /code/scripts/build.sh
+RUN chmod +x /code/script/build.sh
 ARG BUILDENV
-RUN /code/scripts/build.sh $BUILDENV
+RUN /code/script/build.sh $BUILDENV
