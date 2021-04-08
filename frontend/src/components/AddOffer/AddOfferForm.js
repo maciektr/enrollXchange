@@ -65,6 +65,10 @@ class AddOfferForm extends React.Component {
                                 <option>Piotr Faliszewski</option>
                             </Form.Control>
                         </Form.Group>
+                        <Form.Group controlId="AddOfferForm.commentTextArea">
+                            <Form.Label>Komentarz</Form.Label>
+                            <Form.Control as="textarea" rows={2} />
+                        </Form.Group>
                     </Form>
                     
                 </Modal.Body>
