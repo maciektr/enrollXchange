@@ -5,14 +5,16 @@ import {Link} from "react-router-dom";
 
 const Home = () => {
     return (
-        <div className="container red-background">
+        <div className="container test-wrap">
             <div className="row">
                 <div className="col-12 text-center">
                     Dupa :D
                 </div>
             </div>
             <div className="row-cols-1 text-center mt-5">
-                <Button variant="primary">Primary</Button>
+                <Link to="/login">
+                    <Button variant="primary">Zaloguj</Button>
+                </Link>
             </div>
             <div className="row-cols-1 text-center mt-5">
                 <Link to="/market">

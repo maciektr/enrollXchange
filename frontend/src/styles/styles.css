@@ -1,7 +1,10 @@
-.red-background {
-    background-color: red;
+.test-wrap {
+    background-color: antiquewhite;
 }
 
 .cyan-background {
     background-color: cyan;
+}
+#app {
+    height: 100vh;
 }
