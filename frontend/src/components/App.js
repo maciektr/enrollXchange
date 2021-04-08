@@ -5,6 +5,7 @@ import Home from "./Home";
 import LoginPage from "./LoginPage";
 import '../styles/styles.css'
 import MySchedule from "./MySchedule/MySchedule";
+import Form from "./addUser/form/Form";
 
 class App extends Component {
   constructor(props) {
@@ -20,9 +21,12 @@ class App extends Component {
     return (
         <Router>
           <Switch>
+            <div>
               <Route exact path='/' component={Home} />
               <Route exact path='/login' component={LoginPage} />
               <Route path='/my-schedule' component={MySchedule} />
+              <Route path='/addUser' component={Form}/>
+            </div>
           </Switch>
         </Router>
     );
