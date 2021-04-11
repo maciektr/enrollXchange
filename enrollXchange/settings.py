@@ -26,7 +26,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', '+*cxgh*p=3m7sx)c#jh8at06ad4@gcsb5=e7yfflq6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'false').strip().lower() == 'true'
 
-ALLOWED_HOSTS = ['enrollxchange.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['enrollxchange.herokuapp.com', 'localhost', '127.0.0.1', '0.0.0.0']
 
 
 def is_prod():
