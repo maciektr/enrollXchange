@@ -1,0 +1,6 @@
+query meQuery{
+    me {
+        username,
+        verified
+    }
+}

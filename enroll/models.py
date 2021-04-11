@@ -1,14 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-from enroll.fields import DayOfTheWeekField, DAY_OF_THE_WEEK
+from enroll.fields import DayOfTheWeekField
 from enroll.validators import validate_by_user_type
 from enroll.types import UserType
 from enroll.utils import time_plus_minutes
 
 
 class User(AbstractUser):
-    user_type = models.PositiveSmallIntegerField(choices=UserType().get_choices())
+    user_type = models.PositiveSmallIntegerField(choices=UserType.get_choices(),
+                                                 default=UserType.get_by_name('new_user'))
 
     def __str__(self):
         return super().__str__() + ' (' + (UserType.get_by_key(self.user_type)) + ')'
@@ -25,8 +26,12 @@ class Lecturer(models.Model):
     def clean(self):
         validate_by_user_type('teacher')(self.account)
 
-    def __str__(self):
+    @property
+    def full_name(self):
         return f'{self.first_name} {self.last_name}'
+
+    def __str__(self):
+        return self.full_name
 
 
 class Course(models.Model):
@@ -57,7 +62,7 @@ class ClassTime(models.Model):
         return time_plus_minutes(self.start, self.duration_minutes)
 
     def __str__(self):
-        return self.course.__str__() + ' | ' + DAY_OF_THE_WEEK[self.day] + \
+        return self.course.__str__() + ' | ' + self.day + \
                ' ' + self.start.strftime('%H:%M')
 
 
@@ -84,4 +89,4 @@ class Offer(models.Model):
     comment = models.CharField(max_length=280)
     active = models.BooleanField(default=True, null=False)
     # ClassTimes for which author is willing to exchange
-    exchange_to = models.ManyToManyField(ClassTime)
+    exchange_to = models.ManyToManyField(ClassTime, blank=True)

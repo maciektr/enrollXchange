@@ -1,0 +1,36 @@
+query offersQuery {
+	offers(active: true){
+    edges{
+      node{
+        id
+        enrollment{
+          student {
+            id
+            firstName
+            lastName
+            username
+          }
+          classTime{
+              day
+              frequency
+              start
+              durationMinutes
+              course {
+                fullName
+              }
+              lecturer {
+                fullName
+                account{
+                  username
+                }
+              }
+              seats
+          }
+
+        }
+        comment
+        active
+      }
+    }
+  }
+}

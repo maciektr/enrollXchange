@@ -26,11 +26,17 @@ SECRET_KEY = os.getenv('SECRET_KEY', '+*cxgh*p=3m7sx)c#jh8at06ad4@gcsb5=e7yfflq6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'false').strip().lower() == 'true'
 
-ALLOWED_HOSTS = ['*', ]
+ALLOWED_HOSTS = ['enrollxchange.herokuapp.com', 'localhost', '127.0.0.1']
+
+
+def is_prod():
+    return (not DEBUG) and ENVIRONMENT == 'prod'
 
 # Application definition
 
+
 INSTALLED_APPS = [
+    # Django default
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,11 +44,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'livereload',
+    # Other
+    'graphene_django',
+    'graphql_auth',
+    'django_filters',
 
+    # Project apps
     'enroll',
     'frontend',
 ]
+
+if not is_prod():
+    INSTALLED_APPS.append('livereload')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,7 +86,17 @@ TEMPLATES = [
     },
 ]
 
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
 WSGI_APPLICATION = 'enrollXchange.wsgi.application'
+
+# GraphQL
+
+GRAPHENE = {
+    'SCHEMA': 'enroll.schema.schema.schema'
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -110,8 +133,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Email backend
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-if (not DEBUG) and ENVIRONMENT == 'prod':
+if is_prod():
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
     EMAIL_HOST = 'smtp.sendgrid.net'
@@ -143,6 +168,8 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Heroku
 
 if not DEBUG:
     # Configure Django App for Heroku.
