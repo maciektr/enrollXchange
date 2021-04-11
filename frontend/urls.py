@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.index),
     path('market/', views.index),
     path('add-user/', views.index),
+    path('login/', views.index),
     path('my-schedule/', views.index),
 ]
