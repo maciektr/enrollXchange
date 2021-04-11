@@ -3,7 +3,8 @@
 .tool-versions
 
 # React build folder
-/frontend/static/
+/frontend/static/*
+!/frontend/static/styles/
 
 # General
 # Byte-compiled / optimized / DLL files

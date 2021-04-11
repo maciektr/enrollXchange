@@ -5,12 +5,17 @@ Login
 {% endblock %}
 
 {% block content %}
-<div class="bg" style="top: 33vh;">
-    <h2>Login</h2>
+<div class="bg">
+    <h2>Zaloguj się</h2>
     <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Zaloguj</button>
+        <div class="form-boxes text-center">
+            {% csrf_token %}
+            {{ form.as_p }}
+        </div>
+        <div class="button">
+            <button type="submit" class="btn btn-primary">Zaloguj</button>
+        </div>
+        
     </form>
 </div>
 
