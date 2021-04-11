@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {ButtonGroup, Dropdown, DropdownButton} from "react-bootstrap";
-import '../../styles/styles.css'
 import {data} from './Data'
 
 const Market = () => {

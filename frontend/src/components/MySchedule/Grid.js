@@ -4,7 +4,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import {classes} from './MockData'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import AddOfferForm from "../AddOffer/AddOfferForm";
+import AddOfferForm from "./AddOfferForm";
 
 
 const GridFullcalendar = () => {
@@ -48,7 +48,7 @@ const GridFullcalendar = () => {
                 events={events}
             />
 
-            {isInfoWindowOpen ? 
+            {isInfoWindowOpen ?
                 <AddOfferForm
                     show={isInfoWindowOpen}
                     onHide={() => setIsInfoWindowOpen(false)}

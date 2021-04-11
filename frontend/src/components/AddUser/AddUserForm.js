@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import FormSuccess from "./FormSuccess";
-import '../../styles/Form.css'
+import '../../styles/add-user-form.css'
 import FormSignUp from "./FormSignUp";
 import {Link} from "react-router-dom";
 

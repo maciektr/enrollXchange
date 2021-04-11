@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import LoginForm from './LoginForm'
-import '../styles/LoginPage.css'
+import '../../styles/login-page.css'
 
 const LoginPage = () => {
     return (
@@ -13,7 +13,7 @@ const LoginPage = () => {
                     <LoginForm/>
                 </Col>
             </Row>
-        </Container>  
+        </Container>
         </div>
 
     );

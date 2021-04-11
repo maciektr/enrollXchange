@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../styles/Form.css';
+import '../../styles/add-user-form.css';
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 

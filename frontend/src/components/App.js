@@ -1,21 +1,16 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
+import React from "react";
 import {BrowserRouter} from 'react-router-dom';
-import '../styles/styles.css'
 import Navigation from "./Navigation/Navigation";
+import Layout from "./Layout/Layout";
 
-//Routing is moved to src/routes
-class App extends Component {
-  render() {
+const App = () => {
     return (
         <BrowserRouter>
-            <Navigation />
+            <Layout>
+                <Navigation />
+            </Layout>
         </BrowserRouter>
     );
-  }
 }
 
 export default App;
-
-const container = document.getElementById("app");
-render(<App />, container);

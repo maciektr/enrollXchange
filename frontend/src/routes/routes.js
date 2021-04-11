@@ -1,8 +1,7 @@
 import React from "react";
-import Home from "../components/Home";
-import {Route, Switch} from "react-router-dom";
+import Home from "../components/Home/Home";
 import Market from "../components/Market/Market";
-import LoginPage from "../components/LoginPage";
+import LoginPage from "../components/Login/LoginPage";
 import MySchedule from "../components/MySchedule/MySchedule";
 import AddUserForm from "../components/AddUser/AddUserForm";
 
