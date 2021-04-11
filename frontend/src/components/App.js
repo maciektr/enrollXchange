@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from "./Home";
-import Market from "./market/Market";
+import Market from "./Market/Market";
 import LoginPage from "./LoginPage";
 import '../styles/styles.css'
 import MySchedule from "./MySchedule/MySchedule";
-import Form from "./addUser/form/Form";
+import Form from "./AddUser/form/Form";
 
 class App extends Component {
   constructor(props) {
