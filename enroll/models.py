@@ -85,4 +85,4 @@ class Offer(models.Model):
     comment = models.CharField(max_length=280)
     active = models.BooleanField(default=True, null=False)
     # ClassTimes for which author is willing to exchange
-    exchange_to = models.ManyToManyField(ClassTime)
+    exchange_to = models.ManyToManyField(ClassTime, blank=True)

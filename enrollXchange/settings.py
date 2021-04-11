@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'enrollXchange.wsgi.application'
 # GraphQL
 
 GRAPHENE = {
-    'SCHEMA': 'enroll.schema.schema'
+    'SCHEMA': 'enroll.schema.schema.schema'
 }
 
 # Database
