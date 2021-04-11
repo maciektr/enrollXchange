@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-from enroll.fields import DayOfTheWeekField, DAY_OF_THE_WEEK
+from enroll.fields import DayOfTheWeekField
 from enroll.validators import validate_by_user_type
 from enroll.types import UserType
 from enroll.utils import time_plus_minutes
@@ -26,8 +26,12 @@ class Lecturer(models.Model):
     def clean(self):
         validate_by_user_type('teacher')(self.account)
 
-    def __str__(self):
+    @property
+    def full_name(self):
         return f'{self.first_name} {self.last_name}'
+
+    def __str__(self):
+        return self.full_name
 
 
 class Course(models.Model):
@@ -58,7 +62,7 @@ class ClassTime(models.Model):
         return time_plus_minutes(self.start, self.duration_minutes)
 
     def __str__(self):
-        return self.course.__str__() + ' | ' + DAY_OF_THE_WEEK[self.day] + \
+        return self.course.__str__() + ' | ' + self.day + \
                ' ' + self.start.strftime('%H:%M')
 
 

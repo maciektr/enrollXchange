@@ -4,7 +4,7 @@ import {InMemoryCache as Cache} from "apollo-cache-inmemory";
 import { ApolloLink } from 'apollo-link';
 import cookie from "react-cookies";
 
-const uri = `http://127.0.0.1:8000/graphql`;
+const uri = `/graphql`;
 const AuthLink = (operation, next) => {
   const token = cookie.load("csrftoken");
 

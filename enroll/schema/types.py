@@ -1,6 +1,7 @@
 from graphene_django import DjangoObjectType
 from django.contrib.auth import get_user_model
 from graphene import relay
+import graphene
 
 from enroll.models import Course, Lecturer, ClassTime, Enrollment, Offer
 
@@ -11,6 +12,8 @@ class UserType(DjangoObjectType):
 
 
 class LecturerType(DjangoObjectType):
+    full_name = graphene.String()
+
     class Meta:
         model = Lecturer
         interfaces = (relay.Node,)
@@ -60,7 +63,3 @@ class OfferType(DjangoObjectType):
         interfaces = (relay.Node,)
         fields = "__all__"
         filter_fields = ['active']
-
-    @staticmethod
-    def resolve_all(root, info, **kwargs):
-        return Offer.objects.all()
