@@ -1,9 +1,10 @@
 import React, {useState} from "react";
-import FormSignup from "./FormSignup";
 import FormSuccess from "./FormSuccess";
-import '../../../styles/Form.css'
+import '../../styles/Form.css'
+import FormSignUp from "./FormSignUp";
+import {Link} from "react-router-dom";
 
-const Form = () => {
+const AddUserForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false)
 
     function submitForm() {
@@ -13,10 +14,14 @@ const Form = () => {
     return (
         <>
         <div className={"form-container"}>
-            <span className={"close-btn"}>x</span>
+
+                <span className={"close-btn"}>
+                    <Link to="/">x</Link>
+                </span>
+
             <div className={"form-content-left"}/>
             {!isSubmitted ? (
-                <FormSignup submitForm={submitForm} />
+                <FormSignUp submitForm={submitForm} />
             ) : (
                 <FormSuccess />
             )}
@@ -25,4 +30,4 @@ const Form = () => {
     )
 }
 
-export default Form;
+export default AddUserForm;
