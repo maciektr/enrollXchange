@@ -62,4 +62,8 @@ class OfferType(DjangoObjectType):
         model = Offer
         interfaces = (relay.Node,)
         fields = "__all__"
-        filter_fields = ['active']
+        filter_fields = [
+            'active',
+            'enrollment__class_time__course__full_name',
+            'enrollment__class_time__lecturer__full_name'
+        ]
