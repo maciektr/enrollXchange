@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from "react";
 import OfferElement from "./OfferElement";
-import {myOffers} from "../MockData";
+import apollo_client from "../../../util/apollo";
+import myOffersQuery from "../../../queries/myoffers.graphql";
+import {parseMyOffers} from "../../../util/offer/offerParser";
 
 const Offers = () => {
     const [offers, setOffers] = useState([]);
 
     useEffect(() => {
-        //TODO Replace with fetch
-        setOffers(myOffers);
+        apollo_client
+            .query({query: myOffersQuery})
+            .then(result => parseMyOffers(result.data))
+            .then(offers => setOffers(offers))
     }, []);
 
     const htmlList = offers.map(offer => <OfferElement props={offer} key={offer.id}/>)
