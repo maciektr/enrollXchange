@@ -17,6 +17,7 @@ query offersQuery {
               durationMinutes
               course {
                 fullName
+                code
               }
               lecturer {
                 fullName
