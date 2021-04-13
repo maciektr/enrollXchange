@@ -3,7 +3,7 @@ import '../../styles/offer.css'
 import OfferElement from "./OfferElement";
 import apollo_client from "../../util/apollo";
 import offersQuery from '../../queries/offers.graphql';
-import parseOffers from "../../util/offer/offerParser";
+import {parseOffers} from "../../util/offer/offerParser";
 
 
 const OffersList = () => {
