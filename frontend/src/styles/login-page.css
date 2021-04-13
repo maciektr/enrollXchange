@@ -1,0 +1,11 @@
+el {
+    --first-row-size-vh: 25vh
+}
+
+#title {
+    top: 25vh;
+    font-weight: bold;
+    font-size: 5vh;
+    color: white;
+}
+

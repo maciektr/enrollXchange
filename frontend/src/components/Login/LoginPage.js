@@ -1,19 +1,20 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import LoginForm from './LoginForm'
-import '../styles/LoginPage.css'
+import '../../styles/login-page.css'
+import '../../styles/common.css'
 
 const LoginPage = () => {
     return (
-        <div id="bg">
-        <Container id="login-container" >
-            <Row id="row-login">
-                <Col className="col-6 offset-3" id="col-login">
+        <div className="bg-image">
+        <Container className="image-container" >
+            <Row className="row-login">
+                <Col className="col-6 offset-3 col-login">
                     <div className="text-center" id="title">enrollXchange</div>
                     <LoginForm/>
                 </Col>
             </Row>
-        </Container>  
+        </Container>
         </div>
 
     );

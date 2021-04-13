@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react";
 import '../../styles/offer.css'
 import OfferElement from "./OfferElement";
 
-import apollo_client from "../../components/ApolloClient";
+import apollo_client from "../../util/apollo";
 import offersQuery from '../../queries/offers.graphql';
+import {data} from './Data';
 
 
 const OffersList = () => {
@@ -27,9 +28,10 @@ const OffersList = () => {
     };
 
     useEffect(() => {
-        apollo_client
-        .query({query: offersQuery})
-        .then(result => setOffers(parseOffers(result.data)));
+        // apollo_client
+        // .query({query: offersQuery})
+        // .then(result => setOffers(parseOffers(result.data)));
+        setOffers(data);
 
     }, [])
 

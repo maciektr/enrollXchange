@@ -6,7 +6,6 @@ const OfferElement = ({props}) => {
     const [showConfirmation, setShowConfirmation] = useState(false);
 
     const handleConfirmation = () => {
-        //TODO handle exchange
         setShowConfirmation(false)
         alert("DONE")
     }

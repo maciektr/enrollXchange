@@ -1,0 +1,19 @@
+.bg-image{
+    background-image: url("https://sso.ki.agh.edu.pl/auth/resources/tcrgl/login/ki-v2-with-pwreset/img/bg-login.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.image-container {
+    height: 100vh;
+}
+
+.col-login {
+    top: 15vh;
+}
+
+.row-login {
+    height: 100vh;
+    overflow: hidden;
+}
