@@ -4,6 +4,7 @@ import { openRoutes, protectedRoutes } from "../../routes/routes";
 import apollo_client from "../../util/apollo";
 import meQuery from '../../queries/me.graphql';
 
+
 const Navigation = () => {
     const [authorized, setAuthorized] = useState(true);
 
@@ -12,14 +13,13 @@ const Navigation = () => {
             .then(result => result.data)
             .then(object => object.me)
             .then(data => {
-               if (data == null){
-                   setAuthorized(false);
-               } else {
-                   setAuthorized(true);
-               }
+                if (data == null){
+                    setAuthorized(false);
+                } else {
+                    setAuthorized(true);
+                }
             })
     }, [])
-    console.log(authorized)
     return (
         <>
             {openRoutes.map((route) => (
