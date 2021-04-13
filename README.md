@@ -35,9 +35,11 @@ The project is automatically deployed on heroku at [this address](https://enroll
 Before exporting/importing make sure enrollxchange_db image is up and running.
 
 To export:
-```docker exec -it enrollxchange_db pg_dump --clean -U postgres -h localhost postgres > data.sql
+```shell script
+docker exec -it enrollxchange_db pg_dump --clean -U postgres -h localhost postgres > data.sql
 ```
 
 To import:
-```docker exec -it enrollxchange_db psql -U postgres -h localhost postgres < data.sql
+```shell script
+docker exec -it enrollxchange_db psql -U postgres -h localhost postgres < data.sql
 ```
