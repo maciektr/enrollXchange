@@ -1,0 +1,40 @@
+body {
+    height: 100vh;
+    background-image: url("https://sso.ki.agh.edu.pl/auth/resources/tcrgl/login/ki-v2-with-pwreset/img/bg-login.jpg");
+}
+
+.row {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.login-title {
+    position: relative;
+    top: 15vh;
+    color: white;
+    font-weight: bold;
+    font-size: 4vh;
+}
+
+.bg {
+    position: relative;
+    top: 20vh;
+    background-color: white;
+    padding: 2vh;
+    border-radius: 1vh;
+    margin: 0vh;
+}
+
+h2 {
+    text-align: center;
+}
+
+.button {
+
+    display: flex;
+    justify-content: center;
+}
+
+.main {
+    width: 100%;
+}
