@@ -18,7 +18,6 @@ const GridFullcalendar = () => {
     }, [])
 
     const handleEventClick= (props) => {
-        // alert(props.event.title);
         setHighLightedEvent(props.event)
         setIsInfoWindowOpen(true);
     }
