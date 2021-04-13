@@ -7,14 +7,12 @@ const TargetClassElement = ({props}) => {
             <li className="list-group-item">
                 <div className="d-flex justify-content-between align-items-center">
                     <div className="ml-4">
-                        {props.title}
+                        {props.title} {props.lecturer}
                     </div>
 
                     <div className="mr-4">
                         <span>
-                            {props.day}{' '}
-                            {new Date(props.start).getHours()}:{new Date(props.start).getMinutes()} - {' '}
-                            {new Date(props.end).getHours()}:{new Date(props.end).getMinutes()}
+                            {props.day}{' '}{props.time}
                         </span>
                         <span className="ml-5">
                             <Button variant="danger">Usuń</Button>

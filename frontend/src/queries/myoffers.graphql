@@ -1,4 +1,4 @@
-query offersQuery {
+query myOffersQuery {
 	offers(active: true){
     edges{
       node{
@@ -28,6 +28,24 @@ query offersQuery {
               seats
           }
 
+        }
+        exchangeTo {
+          edges {
+            node {
+              id
+              day
+              start
+              durationMinutes
+              course {
+                id
+                code
+              }
+        			lecturer {
+        			  id
+                fullName
+        			}
+            }
+          }
         }
         comment
         active

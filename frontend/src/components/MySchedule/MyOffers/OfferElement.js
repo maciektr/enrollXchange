@@ -9,21 +9,18 @@ const OfferElement = ({props}) => {
     const [closed, setClosed] = useState(true);
     const handleClick = () => setClosed(prevState => !prevState)
 
-    const htmlList = props.exchange_to.map(element => <TargetClassElement props={element} key={element.id} />);
+    const htmlList = props.exchangeTo.map(element => <TargetClassElement props={element} key={element.id} />);
     return (
         <>
             <div className="row mt-3">
                 <div className="col-8 offset-2 offer-element d-flex justify-content-between align-items-center">
                     <div className="ml-4">
-                        {props.currentClass.title}
+                        {props.title} {props.lecturer}
                     </div>
 
                     <div className="mr-4">
                         <span>
-                            {props.currentClass.day}{' '}
-                            {new Date(props.currentClass.start).getHours()}:{new Date(props.currentClass.start).getMinutes()} - {' '}
-                            {new Date(props.currentClass.end).getHours()}:{new Date(props.currentClass.end).getMinutes()}
-                        </span>
+                            {props.day} {props.time}</span>
                         <span className="ml-5">
                             <Button variant="success" className="mr-3" onClick={handleClick}>
                                 {closed ? "Więcej" : "Zamknij"}
