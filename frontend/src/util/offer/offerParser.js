@@ -1,5 +1,4 @@
 import {parseDay} from "./weekDays";
-import {parse} from "graphql";
 
 const parseOffer = (node) => {
     node = node['node'];
@@ -9,6 +8,7 @@ const parseOffer = (node) => {
         lecturer: node['enrollment']['classTime']['lecturer']['fullName'],
         day: parseDay(node['enrollment']['classTime']['day']),
         time: node['enrollment']['classTime']['start'].substr(0,5),
+        comment: node['comment'],
     }
 };
 
