@@ -41,5 +41,5 @@ docker exec -it enrollxchange_db pg_dump --clean -U postgres -h localhost postgr
 
 To import:
 ```shell script
-docker exec -it enrollxchange_db psql -U postgres -h localhost postgres < data.sql
+docker exec -i enrollxchange_db psql -U postgres -h localhost postgres -t < data.sql
 ```
