@@ -20,9 +20,10 @@ const Home = () => {
                                                href="/accounts/login">Zaloguj</a>)
                                             :
                                             (
-                                                <div>
+                                                <div className="text-center">
+                                                    <h2 style={{color: "white"}}>Witaj {user.username}!</h2>
                                                     <Link to="/my-schedule">
-                                                        <button className="btn btn-outline-light" style={{width: '100%'}}>Mój podział</button>
+                                                        <button className="btn btn-outline-light mt-3" style={{width: '100%'}}>Mój podział</button>
                                                     </Link>
                                                     <Link to="/market">
                                                         <button className="btn btn-outline-light mt-5" style={{width: '100%'}}>Giełda</button>
