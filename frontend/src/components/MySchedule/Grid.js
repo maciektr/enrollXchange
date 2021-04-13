@@ -13,12 +13,10 @@ const GridFullcalendar = () => {
     const [highlightedEvent, setHighLightedEvent] = useState(null);
 
     useEffect(() => {
-        //TODO fetch data from real api
         setEvents(classes);
     }, [])
 
     const handleEventClick= (props) => {
-        // alert(props.event.title);
         setHighLightedEvent(props.event)
         setIsInfoWindowOpen(true);
     }

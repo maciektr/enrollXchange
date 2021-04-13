@@ -1,5 +1,5 @@
-import React, {createContext, useEffect, useState} from "react";
-import { Redirect, Route, Switch } from "react-router";
+import React, { useEffect, useState} from "react";
+import { Redirect, Route } from "react-router";
 import { openRoutes, protectedRoutes } from "../../routes/routes";
 import apollo_client from "../../util/apollo";
 import meQuery from '../../queries/me.graphql';
@@ -7,7 +7,7 @@ import meQuery from '../../queries/me.graphql';
 
 const Navigation = () => {
     const [authorized, setAuthorized] = useState(true);
-
+    //;(
     useEffect(() => {
         apollo_client.query({query: meQuery})
             .then(result => result.data)

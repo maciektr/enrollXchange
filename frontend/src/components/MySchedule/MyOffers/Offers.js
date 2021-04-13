@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import OfferElement from "./OfferElement";
-import {myOffers} from "../MockData";
 import apollo_client from "../../../util/apollo";
 import myOffersQuery from "../../../queries/myoffers.graphql";
-import {parseMyOffers, parseOffers} from "../../../util/offer/offerParser";
+import {parseMyOffers} from "../../../util/offer/offerParser";
 
 const Offers = () => {
     const [offers, setOffers] = useState([]);
