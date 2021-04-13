@@ -6,9 +6,9 @@ import Layout from "./Layout/Layout";
 const App = () => {
     return (
         <BrowserRouter>
-            <Layout>
-                <Navigation />
-            </Layout>
+                <Layout>
+                    <Navigation />
+                </Layout>
         </BrowserRouter>
     );
 }

@@ -11,6 +11,11 @@ export const protectedRoutes = [
         exact: true,
         component: MySchedule,
     },
+    {
+        path: "/market",
+        exact: true,
+        component: Market,
+    },
 ];
 
 export const openRoutes = [
@@ -18,11 +23,6 @@ export const openRoutes = [
         path: "/",
         exact: true,
         component: Home,
-    },
-    {
-        path: "/market",
-        exact: true,
-        component: Market,
     },
     {
         path: "/login",
