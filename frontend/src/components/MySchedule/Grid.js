@@ -13,7 +13,6 @@ const GridFullcalendar = () => {
     const [highlightedEvent, setHighLightedEvent] = useState(null);
 
     useEffect(() => {
-        //TODO fetch data from real api
         setEvents(classes);
     }, [])
 

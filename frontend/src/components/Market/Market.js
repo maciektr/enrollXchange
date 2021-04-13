@@ -1,6 +1,5 @@
 import React from "react";
 import OffersList from "./OffersList";
-import {Dropdown} from "react-bootstrap";
 import Filters from "./Filters";
 
 
