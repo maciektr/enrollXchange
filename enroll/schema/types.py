@@ -58,6 +58,7 @@ class EnrollmentType(DjangoObjectType):
         model = Enrollment
         interfaces = (relay.Node,)
         fields = "__all__"
+        filter_fields = []
 
     @staticmethod
     def resolve_all(root, info, **kwargs):
