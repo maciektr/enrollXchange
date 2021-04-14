@@ -4,10 +4,7 @@ import FilterElement from "./FilterElement";
 const Filters = () => {
     return (
         <>
-            <FilterElement name={"filter1"}/>
-            <FilterElement name={"filter1"}/>
-            <FilterElement name={"filter1"}/>
-            <FilterElement name={"filter1"}/>
+            <FilterElement name={"Kurs"} d_key={"course"}/>
         </>
     )
 };

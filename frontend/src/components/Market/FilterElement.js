@@ -1,21 +1,31 @@
-import React from "react";
-import {Dropdown} from "react-bootstrap";
+import React, {useContext} from "react";
+import {FiltersContext} from "../../context/Filters";
+import {Form} from "react-bootstrap";
 
-const FilterElement = ({name}) => {
+const FilterElement = ({name, d_key}) => {
+    const { filters, setFilters } = useContext(FiltersContext);
+
+    const options = [{code: "ASD", fullName: "Algorytmy i Struktury Danych"}]
+        .map(option => <option value={option.fullName} key={option.code}>{option.code}</option>)
+
+    const handleChange = (event) => {
+        const updatedValue = {};
+        updatedValue[d_key] = event.target.value;
+        setFilters(prev => ({
+            ...prev,
+            ...updatedValue,
+        }))
+    }
+    console.log(filters)
     return (
-        <>
-            <Dropdown className="m-2">
-                <Dropdown.Toggle variant="success">
-                    {name}
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                    <Dropdown.Item>Action</Dropdown.Item>
-                    <Dropdown.Item>Another action</Dropdown.Item>
-                    <Dropdown.Item>Something else</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
-        </>
+        <div className="m-2">
+            <Form>
+                <Form.Control size="sm" as="select" onChange={handleChange}>
+                    <option value={""}>{name}</option>
+                    {options}
+                </Form.Control>
+            </Form>
+        </div>
     )
 }
 
