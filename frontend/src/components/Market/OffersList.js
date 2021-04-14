@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import '../../styles/offer.css'
 import OfferElement from "./OfferElement";
 import apollo_client from "../../util/apollo";
 import offersQuery from '../../queries/offers.graphql';
 import {parseOffers} from "../../util/offer/offerParser";
+import {FiltersContext} from "../../context/Filters";
 
 
 const OffersList = () => {
     const [offers, setOffers] = useState([]);
+    const { filters, setFilters } = useContext(FiltersContext);
 
     useEffect(() => {
         apollo_client
@@ -15,7 +17,11 @@ const OffersList = () => {
         .then(result => setOffers(parseOffers(result.data)));
     }, [])
 
-    const htmlList = offers.map((offer) => <OfferElement key={offer.id} props={offer} />);
+    console.log(offers)
+
+    const htmlList = offers
+        .filter(offer => offer.fullName === filters.course || filters.course === "")
+        .map((offer) => <OfferElement key={offer.id} props={offer} />);
 
     return (
         <>
