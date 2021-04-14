@@ -1,5 +1,5 @@
-query offersQuery {
-	offers(active: true){
+query offersQuery($course: String) {
+	offers(active: true, enrollment_ClassTime_Course_FullName: $course){
     edges{
       node{
         id

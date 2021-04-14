@@ -13,15 +13,11 @@ const OffersList = () => {
 
     useEffect(() => {
         apollo_client
-        .query({query: offersQuery})
+        .query({query: offersQuery, variables: {"course": filters.course}})
         .then(result => setOffers(parseOffers(result.data)));
-    }, [])
+    }, [filters])
 
-    console.log(offers)
-
-    const htmlList = offers
-        .filter(offer => offer.fullName === filters.course || filters.course === "")
-        .map((offer) => <OfferElement key={offer.id} props={offer} />);
+    const htmlList = offers.map((offer) => <OfferElement key={offer.id} props={offer} />);
 
     return (
         <>

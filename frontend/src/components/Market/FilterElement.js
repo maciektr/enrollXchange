@@ -16,7 +16,7 @@ const FilterElement = ({name, d_key}) => {
             ...updatedValue,
         }))
     }
-    console.log(filters)
+
     return (
         <div className="m-2">
             <Form>
