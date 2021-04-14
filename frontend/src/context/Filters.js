@@ -5,6 +5,7 @@ const FiltersContext = React.createContext({filters: {}, setFilters: () => {}});
 const FiltersProvider = ({children}) => {
     const [filters, setFilters] = useState({
         course: "",
+        lecturer: "",
     });
 
     return (

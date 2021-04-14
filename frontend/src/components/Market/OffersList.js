@@ -12,11 +12,12 @@ const OffersList = () => {
     const { filters } = useContext(FiltersContext);
 
     useEffect(() => {
+        const lec = filters.lecturer.split(" ")
         apollo_client
         .query({query: offersQuery, variables: {
                 course: filters.course,
-                firstName: "",
-                lastName: ""
+                firstName: lec[0],
+                lastName: lec[1]
         }})
         .then(result => setOffers(parseOffers(result.data)));
     }, [filters])
