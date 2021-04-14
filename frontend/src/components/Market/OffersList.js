@@ -9,11 +9,15 @@ import {FiltersContext} from "../../context/Filters";
 
 const OffersList = () => {
     const [offers, setOffers] = useState([]);
-    const { filters, setFilters } = useContext(FiltersContext);
+    const { filters } = useContext(FiltersContext);
 
     useEffect(() => {
         apollo_client
-        .query({query: offersQuery, variables: {"course": filters.course}})
+        .query({query: offersQuery, variables: {
+                course: filters.course,
+                firstName: "",
+                lastName: ""
+        }})
         .then(result => setOffers(parseOffers(result.data)));
     }, [filters])
 

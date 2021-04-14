@@ -1,5 +1,14 @@
-query offersQuery($course: String) {
-	offers(active: true, enrollment_ClassTime_Course_FullName: $course){
+query offersQuery(
+  $course: String,
+  $firstName: String,
+  $lastName: String,
+) {
+	offers(
+    active: true,
+    enrollment_ClassTime_Course_FullName: $course,
+    enrollment_ClassTime_Lecturer_FirstName: $firstName,
+    enrollment_ClassTime_Lecturer_LastName: $lastName
+  ){
     edges{
       node{
         id
