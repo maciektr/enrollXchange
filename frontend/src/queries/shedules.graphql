@@ -1,0 +1,27 @@
+query schedulesQuery {
+	enrollments{
+	  edges {
+	    node {
+	      classTime {
+	        id
+          start
+          durationMinutes
+          day
+          lecturer {
+            id
+            firstName
+            lastName
+          }
+          course {
+            id
+            fullName
+            code
+          }
+	    }
+        student {
+          username
+        }
+	    }
+	  }
+	}
+}
