@@ -2,6 +2,7 @@ query schedulesQuery {
 	enrollments{
 	  edges {
 	    node {
+	        id
 	      classTime {
 	        id
           start

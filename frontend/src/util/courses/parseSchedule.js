@@ -1,3 +1,5 @@
+import {parseDay} from "../offer/weekDays";
+
 const weekDays = {
     "MONDAY": "2021-03-01T",
     "TUESDAY": "2021-03-02T",
@@ -30,10 +32,28 @@ export const parseSchedule = (node, user) => {
                 student: node.student.username,
                 code: node.classTime.course.code,
                 fullName: node.classTime.course.fullName,
+                enrollmentId: node.id,
             }
         }))
         .filter(node => node.extendedProps.student === user.username)
 
+    return node;
+
+}
+
+export const parseScheduleByClass = (node, name) => {
+    node = node["data"]["enrollments"]["edges"]
+
+    node = node.map(node => node.node)
+        .map(node => ({
+                title: node.classTime.course.code + ", " + node.classTime.lecturer.firstName.charAt(0) + ". " + node.classTime.lecturer.lastName,
+                start: node.classTime.start,
+                day: parseDay(node.classTime.day),
+                fullName: node.classTime.course.fullName,
+                classTimeId: node.classTime.id,
+            }
+        ))
+        .filter(node => node.fullName === name)
     return node;
 
 }
