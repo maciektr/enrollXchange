@@ -6,6 +6,7 @@ const Filters = () => {
         <>
             <FilterElement name={"Kurs"} d_key={"course"}/>
             <FilterElement name={"Prowadzący"} d_key={"lecturer"}/>
+            <FilterElement name={"Dzień"} d_key={"day"}/>
         </>
     )
 };

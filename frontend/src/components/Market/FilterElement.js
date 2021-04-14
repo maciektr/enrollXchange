@@ -5,6 +5,7 @@ import apollo_client from "../../util/apollo";
 import lecturersQuery from '../../queries/lecturers.graphql'
 import coursesQuery from '../../queries/courses.graphql'
 import {parseCourses, parseLecturers} from "../../util/filters/filters";
+import {parseDay, weekDays} from "../../util/offer/weekDays";
 
 const FilterElement = ({name, d_key}) => {
     const { filters, setFilters } = useContext(FiltersContext);
@@ -16,6 +17,7 @@ const FilterElement = ({name, d_key}) => {
                 .then(res => setOptions(parseCourses(res))); break;
             case "lecturer": apollo_client.query({query: lecturersQuery})
                 .then(res => setOptions(parseLecturers(res))); break;
+            case "day": setOptions(Object.entries(weekDays).map(day => day[0])); break;
         }
     }, [])
 
@@ -28,6 +30,10 @@ const FilterElement = ({name, d_key}) => {
         case "lecturer":
             optionsElements = options
                 .map(option => <option value={option} key={option}>{option}</option>);
+            break
+        case "day":
+            optionsElements = options
+                .map(option => <option value={option} key={option}>{parseDay(option)}</option>);
             break
     }
 

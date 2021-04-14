@@ -17,7 +17,8 @@ const OffersList = () => {
         .query({query: offersQuery, variables: {
                 course: filters.course,
                 firstName: lec[0],
-                lastName: lec[1]
+                lastName: lec[1],
+                day: filters.day
         }})
         .then(result => setOffers(parseOffers(result.data)));
     }, [filters])

@@ -6,6 +6,7 @@ const FiltersProvider = ({children}) => {
     const [filters, setFilters] = useState({
         course: "",
         lecturer: "",
+        day: ""
     });
 
     return (
