@@ -8,7 +8,6 @@ import {parseSchedule, parseScheduleByClass} from "../../util/courses/parseSched
 import offerMutation from '../../mutations/offer.graphql';
 
 const AddOfferForm = (props) => {
-    console.log(props.event)
     const [classes, setClasses] = useState([]);
     const [pickedClass, setPickedClass] = useState("");
     const [comment, setComment] = useState("");
@@ -26,14 +25,14 @@ const AddOfferForm = (props) => {
 
     const handleSubmit = () => {
         if (pickedClass !== ""){
-            console.log(pickedClass, comment)
-            // apollo_client.mutate({mutation: offerMutation, variables: {
-            //     "classTimeId": , "comment": , "enrollmentId": ,
-            // }})
+            apollo_client.mutate({mutation: offerMutation, variables: {
+                "classTimeId": pickedClass, "comment": comment, "enrollmentId": props.event.extendedProps.enrollmentId,
+            }}).then(res => console.log(res)).then(() => props.onHide()).then(() => location.reload())
         }
     }
 
-    const list = classes.map(c => <option key={c.classTimeId} value={c.classTimeId}>{c.classTimeId} {c.day} {c.start}</option>)
+
+    const list = classes.map(c => <option key={c.classTimeId} value={c.classTimeId}>{c.day} {c.start}</option>)
     return (
         <Modal show={props.show} onHide={props.onHide}>
             <Modal.Header closeButton>
