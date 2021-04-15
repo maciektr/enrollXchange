@@ -40,6 +40,15 @@ class ClassTimeType(DjangoObjectType):
         model = ClassTime
         interfaces = (relay.Node,)
         fields = "__all__"
+        filter_fields = [
+            "day",
+            "frequency",
+            "start",
+            "lecturer__first_name",
+            "lecturer__last_name",
+            "course__code",
+            "course__full_name"
+        ]
 
     @staticmethod
     def resolve_all(root, info, **kwargs):
@@ -51,6 +60,9 @@ class EnrollmentType(DjangoObjectType):
         model = Enrollment
         interfaces = (relay.Node,)
         fields = "__all__"
+        filter_fields = [
+            'student__id'
+        ]
 
     @staticmethod
     def resolve_all(root, info, **kwargs):
@@ -62,4 +74,12 @@ class OfferType(DjangoObjectType):
         model = Offer
         interfaces = (relay.Node,)
         fields = "__all__"
-        filter_fields = ['active']
+        filter_fields = [
+            'active',
+            'enrollment__class_time__course__full_name',
+            'enrollment__class_time__lecturer__first_name',
+            'enrollment__class_time__lecturer__last_name',
+            'enrollment__class_time__day',
+            'enrollment__class_time__start',
+            'enrollment__class_time__frequency',
+        ]
