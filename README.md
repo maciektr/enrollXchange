@@ -36,7 +36,7 @@ Before exporting/importing make sure enrollxchange_db image is up and running.
 
 To export:
 ```shell script
-docker exec -it enrollxchange_db pg_dump --clean -U postgres -h localhost postgres > data.sql
+docker exec -it enrollxchange_db pg_dump --inserts --clean -U postgres -h localhost postgres > data.sql
 ```
 
 To import:
