@@ -20,7 +20,6 @@ class Query(MeQuery, graphene.ObjectType):
     enrollments = DjangoFilterConnectionField(EnrollmentType)
     matchingOffers = DjangoFilterConnectionField(OfferType)
 
-
     @staticmethod
     def resolve_enrollments(self, info, **kwargs):
         if info.context.user.is_authenticated:
@@ -40,11 +39,10 @@ class Query(MeQuery, graphene.ObjectType):
             user_enrollments = list(Enrollment.objects.filter(student=user))
             user_class_times = [e.class_time for e in user_enrollments]
             class_time_fields = [(c.day, c.frequency, c.start, c.end) for c in user_class_times]
-            print(class_time_fields)
-            # print(class_time_fields[1][3])
             query_list = [
                 Q(enrollment__class_time__day=fields[0]) & Q(enrollment__class_time__frequency=fields[1]) &
-                Q(enrollment__class_time__start__lt=fields[3]) #| Q(enrollment__class_time__end__gte=fields[2])  # FIXME impossible filter by property
+                # FIXME find way to include end in filter query
+                Q(enrollment__class_time__start__lt=fields[3])  # | Q(enrollment__class_time__end__gte=fields[2])
                 for fields in class_time_fields
             ]
             final_query = Q()
@@ -53,7 +51,6 @@ class Query(MeQuery, graphene.ObjectType):
                 final_query |= q
 
             return Offer.objects.exclude(final_query)
-            # return Offer.objects.all()
         return Offer.objects.none()
 
     @staticmethod

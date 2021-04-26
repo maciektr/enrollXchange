@@ -14,7 +14,7 @@ const parseOffer = (node) => {
 };
 
 const parseOffers = (queryResult) => {
-    // TODO remove hardcoded query name
+    // TODO remove hardcoded query name ?
     return queryResult['matchingOffers']['edges'].map(offer => parseOffer(offer));
 };
 
