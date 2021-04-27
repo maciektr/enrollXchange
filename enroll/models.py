@@ -57,9 +57,7 @@ class ClassTime(models.Model):
     course = models.ForeignKey(Course, null=True, on_delete=models.CASCADE)
     lecturer = models.ForeignKey(Lecturer, null=True, on_delete=models.SET_NULL)
     seats = models.PositiveIntegerField()
-    # end = models.TimeField(null=False, auto_now=False)
 
-    # FIXME find workaround for property
     @property
     def end(self):
         return time_plus_minutes(self.start, self.duration_minutes)

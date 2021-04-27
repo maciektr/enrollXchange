@@ -2,7 +2,7 @@ import graphene
 from graphene import relay
 from graphql_auth.schema import UserQuery, MeQuery
 from graphene_django.filter import DjangoFilterConnectionField
-from django.db.models import Q
+from django.db.models import Q, QuerySet
 
 from .types import CourseType, OfferType, ClassTimeType, EnrollmentType
 from ..models import Offer, ClassTime, Enrollment
@@ -40,9 +40,9 @@ class Query(MeQuery, graphene.ObjectType):
             user_class_times = [e.class_time for e in user_enrollments]
             class_time_fields = [(c.day, c.frequency, c.start, c.end) for c in user_class_times]
             query_list = [
-                Q(enrollment__class_time__day=fields[0]) & Q(enrollment__class_time__frequency=fields[1]) &
-                # FIXME find way to include end in filter query
-                Q(enrollment__class_time__start__lt=fields[3])  # | Q(enrollment__class_time__end__gte=fields[2])
+                Q(enrollment__class_time__day=fields[0]) &
+                Q(enrollment__class_time__frequency=fields[1]) &
+                Q(enrollment__class_time__start__lt=fields[3])
                 for fields in class_time_fields
             ]
             final_query = Q()
@@ -50,7 +50,18 @@ class Query(MeQuery, graphene.ObjectType):
             for q in query_list:
                 final_query |= q
 
-            return Offer.objects.exclude(final_query)
+            prefiltered_offers = Offer.objects.exclude(final_query)
+
+            unwanted_offers_ids = []
+            for r in prefiltered_offers:  # temporary(?) solution to filtering by property
+                for e in class_time_fields:
+                    if r.enrollment.class_time.frequency == e[1] and \
+                            r.enrollment.class_time.day == e[0] and \
+                            r.enrollment.class_time.end >= e[2]:
+                        unwanted_offers_ids.append(r.id)
+
+            return prefiltered_offers.exclude(id__in=unwanted_offers_ids)
+
         return Offer.objects.none()
 
     @staticmethod
