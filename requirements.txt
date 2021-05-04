@@ -8,3 +8,4 @@ graphene_django
 graphene
 django-graphql-auth
 django-graphql-jwt
+black

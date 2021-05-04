@@ -20,6 +20,14 @@ Alternatively, you can follow the [local setup instruction here](https://github.
 
 Now you can visit [localhost:8000](127.0.0.1:8000) from your browser.
 
+### Auto-formatter
+We can use [black](https://github.com/psf/black) auto-formatter to seamlessly fix code formatting problems.
+
+To utilize this solution, please use the command below.
+```shell
+python -m black {source_file_or_directory}
+```
+
 ### Docker setup
 The docker-compose file runs the following services:
 - db: Used as the primary database for the app (postgres)
@@ -29,6 +37,15 @@ Note - To stop these service you can type `Ctrl-C` in the docker compose termina
 You can also run the dependent services in the background with:
 ```shell script
 docker-compose up -d
+```
+
+After container has started, you can run own command inside it via:
+```shell
+docker-compose exec {container_name} {command}
+```
+For instance you can open containers shell running:
+```shell
+docker-compose exec web sh
 ```
 
 ## Deployment
