@@ -82,4 +82,5 @@ class OfferType(DjangoObjectType):
             'enrollment__class_time__day',
             'enrollment__class_time__start',
             'enrollment__class_time__frequency',
+            'enrollment__student__id'
         ]
