@@ -6,6 +6,7 @@ from django.db.models import Q, QuerySet
 
 from .types import CourseType, OfferType, ClassTimeType, EnrollmentType
 from ..models import Offer, ClassTime, Enrollment
+from ..mail import send_offer_accepted
 
 
 class CourseConnection(relay.Connection):
@@ -230,8 +231,8 @@ class AcceptOffer(graphene.Mutation):
                             user_enrollments,
                         )
                     )[0]
-                    offer.enrollment.student = user_enrollment.student
-                    user_enrollment.student = offer.enrollment.student
+                    offer.enrollment.student, user_enrollment.student =\
+                        user_enrollment.student, offer.enrollment.student
                     try:
                         user_offer = Offer.objects.get(
                             enrollment__student=user,
@@ -242,9 +243,16 @@ class AcceptOffer(graphene.Mutation):
                     except Offer.DoesNotExist as e:
                         user_offer = None
 
+                    send_offer_accepted(
+                        offer_client_mail=user_enrollment.student.email,
+                        offer_owner_mail=offer.enrollment.student.email,
+                        client_class_time=user_enrollment.class_time,
+                        offer_class_time=offer.enrollment.class_time,
+                    )
+
                     offer.enrollment.save()
-                    offer.save()
                     user_enrollment.save()
+
                     return AcceptOffer(offerAccepted=True)
         return AcceptOffer(offerAccepted=False)
 
