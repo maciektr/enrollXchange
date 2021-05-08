@@ -64,3 +64,8 @@ To import:
 ```shell script
 docker exec -i enrollxchange_db psql -U postgres -h localhost postgres -t < data.sql
 ```
+
+## Run the syntax checks
+```shell command
+docker exec -it enrollxchange_web pycodestyle .
+```
