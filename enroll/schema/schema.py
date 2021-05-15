@@ -2,10 +2,11 @@ import graphene
 from graphene import relay
 from graphql_auth.schema import MeQuery
 from graphene_django.filter import DjangoFilterConnectionField
-from django.db.models import Q, QuerySet
+from django.db.models import Q
 
-from .types import CourseType, OfferType, ClassTimeType, EnrollmentType
-from ..models import Offer, ClassTime, Enrollment
+from .types import CourseType, OfferType, ClassTimeType, EnrollmentType, StudentRequestType
+from ..models import Offer, ClassTime, Enrollment, StudentRequest, Lecturer
+from ..types import UserType
 from ..mail import send_offer_accepted
 
 
@@ -21,6 +22,7 @@ class Query(MeQuery, graphene.ObjectType):
     my_class_times = DjangoFilterConnectionField(ClassTimeType)
     enrollments = DjangoFilterConnectionField(EnrollmentType)
     matchingOffers = DjangoFilterConnectionField(OfferType)
+    student_requests = DjangoFilterConnectionField(StudentRequestType)
 
     @staticmethod
     def resolve_enrollments(self, info, **kwargs):
@@ -84,6 +86,14 @@ class Query(MeQuery, graphene.ObjectType):
         if info.context.user.is_authenticated:
             return ClassTime.objects.all()
         return ClassTime.objects.none()
+
+    @staticmethod
+    def resolve_student_requests(self, info, **kwargs):
+        user = info.context.user
+        if user.is_authenticated and user.user_type == UserType.get_by_name('teacher'):
+            lecturer = Lecturer.objects.get(account=user)
+            return StudentRequest.objects.filter(lecturer=lecturer)
+        return StudentRequest.objects.none()
 
 
 class CreateOfferWithAny(graphene.Mutation):
