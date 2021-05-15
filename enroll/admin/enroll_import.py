@@ -71,7 +71,7 @@ class EnrollImporter:
             return list(map(parse_course, lines))
 
         def parse_time(time_lines):
-            def get_day(day):
+            def get_day_enum(day):
                 if day == "poniedziałek":
                     return DayOfTheWeek.MONDAY
                 if day == "wtorek":
@@ -87,12 +87,32 @@ class EnrollImporter:
                 if day == "niedziela":
                     return DayOfTheWeek.SUNDAY
 
+            def get_day(day):
+                if not get_day_enum(day):
+                    return None
+                return get_day_enum(day).value
+
+            def get_duration(start_time, end_time):
+                start_datetime = datetime.datetime.combine(
+                    datetime.date.today(), start_time
+                )
+                end_datetime = datetime.datetime.combine(
+                    datetime.date.today(), end_time
+                )
+                diff = end_datetime - start_datetime
+                return int(diff.total_seconds() // 60)
+
             def parse_time_entry(entry):
-                day, start = entry.split(" - ", 1)[0].split(" ", 1)
+                left, end_time = entry.split(" - ", 1)
+                day, start = left.split(" ", 1)
                 hour, minute = start.split(":", 1)
+                end_hour, end_minute = end_time.split(":", 1)
+                start_time = datetime.time(int(hour), int(minute), 0)
+                end_time = datetime.time(int(end_hour), int(end_minute), 0)
                 return {
                     "day": get_day(day),
-                    "start": datetime.time(int(hour), int(minute), 0),
+                    "start": start_time,
+                    "duration": get_duration(start_time, end_time),
                 }
 
             time_lines = time_lines[1:]
@@ -123,14 +143,47 @@ class EnrollImporter:
                 },
             )
 
-        def create_course():
-            pass
+        def create_course(parsed_course):
+            course_object = Course.objects.get_or_create(
+                full_name=parsed_course["name"],
+            )[0]
+            for time in parsed_course["times"]:
+                lecturer = Lecturer.objects.filter(
+                    first_name=time["lecturer"]["first_name"],
+                    last_name=time["lecturer"]["last_name"],
+                ).first()
+                if not lecturer:
+                    lecturer = Lecturer.objects.create(
+                        first_name=time["lecturer"]["first_name"],
+                        last_name=time["lecturer"]["last_name"],
+                    )
 
-        def create_time():
-            pass
+                class_time = ClassTime.objects.filter(
+                    course=course_object.id,
+                    lecturer=lecturer.id,
+                    day=time["time"]["day"],
+                    start=time["time"]["start"],
+                    duration_minutes=time["time"]["duration"],
+                ).first()
+                if not class_time:
+                    class_time = ClassTime.objects.create(
+                        frequency=ClassTime.FrequencyType.EVERY_WEEK,
+                        seats=len(time["students"]),
+                        course_id=course_object.id,
+                        lecturer_id=lecturer.id,
+                        day=time["time"]["day"],
+                        start=time["time"]["start"],
+                        duration_minutes=time["time"]["duration"],
+                    )
 
-        for course in parsed:
-            pass
+                for class_student in time["students"]:
+                    student_object = Student.objects.get(student_id=class_student["id"])
+                    Enrollment.objects.get_or_create(
+                        class_time=class_time,
+                        student=student_object,
+                    )
+
+        map(create_course, parsed)
 
 
 class CustomConfirmImportForm(ConfirmImportForm):

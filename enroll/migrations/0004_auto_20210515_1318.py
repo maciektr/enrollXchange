@@ -27,4 +27,9 @@ class Migration(migrations.Migration):
             name='student',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='enroll.student'),
         ),
+        migrations.AlterField(
+            model_name='lecturer',
+            name='account',
+            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+        ),
     ]

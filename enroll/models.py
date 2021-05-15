@@ -41,6 +41,7 @@ class Lecturer(models.Model):
     account = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
+        null=True,
     )
 
     def clean(self):
