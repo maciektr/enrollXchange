@@ -1,7 +1,8 @@
 import datetime as dt
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from django.db.utils import DataError
+from django.db import transaction
+from django.db.utils import DataError, IntegrityError
 
 from enroll.models import User, Student, Lecturer, Enrollment, ClassTime
 from enroll.types import UserType
@@ -29,7 +30,7 @@ class UserTestCase(TestCase):
             username="testuser1",
             password="12345",
         )
-        self.student = Student.objects.create(
+        self.student = User.objects.create(
             user_type=UserType.get_by_name("student"),
             username="testuser2",
             password="12345",
@@ -54,33 +55,39 @@ class StudentTestCase(UserTestCase):
         """
         Assert that ValidationError is raised when student has incorrect student id number set.
         """
-        Student.objects.create(
-            user_type=UserType.get_by_name("student"),
-            username="testuser5",
-            password="12345",
-            student_id="123456",
-        ).clean()
         with self.assertRaises(ValidationError):
-            Student.objects.create(
-                user_type=UserType.get_by_name("student"),
-                username="testuser7",
-                password="12345",
+            student = Student.objects.create(
+                account=self.student,
                 student_id="1234",
-            ).clean()
+            )
+            student.clean()
         with self.assertRaises(ValidationError):
-            Student.objects.create(
-                user_type=UserType.get_by_name("student"),
-                username="testuser8",
-                password="12345",
+            student.delete()
+            student = Student.objects.create(
+                account=self.student,
                 student_id="123a56",
-            ).clean()
+            )
+            student.clean()
         with self.assertRaises(DataError):
-            Student.objects.create(
-                user_type=UserType.get_by_name("student"),
-                username="testuser6",
-                password="12345",
-                student_id="12345678",
-            ).clean()
+            student.delete()
+            with transaction.atomic():
+                student = Student.objects.create(
+                    account=self.student,
+                    student_id="12345678",
+                )
+            student.clean()
+        student = Student.objects.create(
+            account=self.student,
+            student_id="123456",
+        )
+        student.clean()
+        with self.assertRaises(IntegrityError):
+            # sid has to be unique
+            student = Student.objects.create(
+                account=self.student,
+                student_id="123456",
+            )
+            student.clean()
 
     def test_student_user_type_validation(self):
         """
@@ -88,24 +95,18 @@ class StudentTestCase(UserTestCase):
         has user_type different than student.
         """
         Student.objects.create(
-            user_type=UserType.get_by_name("student"),
-            username="testuser5",
-            password="12345",
+            account=self.student,
             student_id="123456",
         ).clean()
         with self.assertRaises(ValidationError):
             Student.objects.create(
-                user_type=UserType.get_by_name("teacher"),
-                username="testuser6",
-                password="12345",
-                student_id="123456",
+                account=self.teacher,
+                student_id="123457",
             ).clean()
         with self.assertRaises(ValidationError):
             Student.objects.create(
-                user_type=UserType.get_by_name("moderator"),
-                username="testuser7",
-                password="12345",
-                student_id="123456",
+                account=self.moderator,
+                student_id="123458",
             ).clean()
 
 
@@ -140,7 +141,10 @@ class EnrollmentTestCase(UserTestCase):
         """
         Assert that ValidationError is raised when Enrollment is linked to user other than student.
         """
-        Enrollment.objects.create(student=self.student, class_time=self.time).clean()
+        Enrollment.objects.create(
+            student=Student.objects.create(account=self.student, student_id="123456"),
+            class_time=self.time,
+        ).clean()
         with self.assertRaises(ValueError):
             Enrollment.objects.create(
                 student=self.new_user, class_time=self.time

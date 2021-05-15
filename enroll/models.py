@@ -17,12 +17,21 @@ class User(AbstractUser):
         return super().__str__() + " (" + (UserType.get_by_key(self.user_type)) + ")"
 
 
-class Student(User):
-    student_id = models.CharField(max_length=6, null=True)
-    # Should not be nullable in production environment
+class Student(models.Model):
+    first_name = models.CharField(max_length=ModelConstants.NAME_LENGTH)
+    last_name = models.CharField(max_length=ModelConstants.NAME_LENGTH)
+    student_id = models.CharField(max_length=6, null=False, blank=False, unique=True)
+    account = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+    )
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} #{self.student_id}"
 
     def clean(self):
-        validate_by_user_type("student")(self)
+        validate_by_user_type("student")(self.account)
         validate_student_id(self)
 
 
@@ -113,11 +122,19 @@ class OfferFields(models.Model):
 
 class Offer(OfferFields):
     def __str__(self):
-        return self.enrollment.student.__str__() + ' - ' + self.enrollment.class_time.__str__()
+        return (
+            self.enrollment.student.__str__()
+            + " - "
+            + self.enrollment.class_time.__str__()
+        )
 
 
 class StudentRequest(OfferFields):
     lecturer = models.ForeignKey(Lecturer, null=False, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.enrollment.student.__str__() + ' - ' + self.enrollment.class_time.__str__()
+        return (
+            self.enrollment.student.__str__()
+            + " - "
+            + self.enrollment.class_time.__str__()
+        )
