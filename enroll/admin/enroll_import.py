@@ -7,14 +7,15 @@ from import_export.formats import base_formats
 from import_export.forms import ConfirmImportForm
 from import_export import resources
 
-from enroll.models import Enrollment
+from enroll.models import Student, Lecturer, Enrollment, ClassTime, Course
 from enroll.fields import DayOfTheWeek
 
 
 class EnrollImporter:
     def __init__(self, in_stream):
-        lines = EnrollImporter.parse_file(in_stream)
-        print(lines)
+        self.students = dict()
+        lines = self.parse_file(in_stream)
+        self.save_models(lines)
 
     @staticmethod
     def clear_list(array):
@@ -36,8 +37,22 @@ class EnrollImporter:
         res.append(subarray)
         return res
 
-    @staticmethod
-    def parse_file(in_stream):
+    def parse_file(self, in_stream):
+        def parse_name(name):
+            return {
+                "first_name": name.split(" ", 1)[0],
+                "last_name": name.split(" ", 1)[1],
+            }
+
+        def parse_student(line):
+            student = {
+                "id": line.split(";", 1)[0],
+                "name": parse_name(line.split(";", 1)[1]),
+            }
+            student["id"] = student["id"] if student["id"] else None
+            self.students[line] = student
+            return student
+
         def split_courses(lines):
             return EnrollImporter.split_list(
                 lines, lambda line: line and line[-1] == ";" and line != ";"
@@ -57,43 +72,37 @@ class EnrollImporter:
 
         def parse_time(time_lines):
             def get_day(day):
-                if day == 'poniedzialek':
+                if day == "poniedziałek":
                     return DayOfTheWeek.MONDAY
-                if day == 'wtorek':
+                if day == "wtorek":
                     return DayOfTheWeek.TUESDAY
-                if day == 'sroda':
+                if day == "środa":
                     return DayOfTheWeek.WEDNESDAY
-                if day == 'czwartek':
+                if day == "czwartek":
                     return DayOfTheWeek.THURSDAY
-                if day == 'piatek':
+                if day == "piątek":
                     return DayOfTheWeek.FRIDAY
-                if day == 'sobota':
+                if day == "sobota":
                     return DayOfTheWeek.SATURDAY
-                if day == 'niedziela':
+                if day == "niedziela":
                     return DayOfTheWeek.SUNDAY
 
             def parse_time_entry(entry):
-                day, start = entry.split(' - ', 1)[0].split(' ', 1)
-                hour, minute = start.split(':', 1)
-                return {'day': get_day(day), 'start': datetime.time(int(hour), int(minute), 0)}
+                day, start = entry.split(" - ", 1)[0].split(" ", 1)
+                hour, minute = start.split(":", 1)
+                return {
+                    "day": get_day(day),
+                    "start": datetime.time(int(hour), int(minute), 0),
+                }
 
             time_lines = time_lines[1:]
+            time_entry, lecturer_entry = time_lines[0].split("; ", 1)
             time = {
-                "time": parse_time_entry(time_lines[0].split("; ", 1)[0]),
-                "lecturer": time_lines[0].split("; ", 1)[1],
+                "time": parse_time_entry(time_entry),
+                "lecturer": parse_name(lecturer_entry),
             }
-            time_lines = list(
-                filter(
-                    lambda line: len(line) > 0,
-                    map(
-                        lambda line: {
-                            "id": line.split(";")[0],
-                            "name": line.split(";")[1],
-                        },
-                        time_lines,
-                    ),
-                )
-            )
+            time_lines = time_lines[1:]
+            time_lines = list(map(parse_student, time_lines))
             time["students"] = time_lines
             return time
 
@@ -105,7 +114,23 @@ class EnrollImporter:
         return file
 
     def save_models(self, parsed):
-        pass
+        for student in self.students.values():
+            Student.objects.update_or_create(
+                student_id=student["id"],
+                defaults={
+                    "last_name": student["name"]["last_name"],
+                    "first_name": student["name"]["first_name"],
+                },
+            )
+
+        def create_course():
+            pass
+
+        def create_time():
+            pass
+
+        for course in parsed:
+            pass
 
 
 class CustomConfirmImportForm(ConfirmImportForm):
