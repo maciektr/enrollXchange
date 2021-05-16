@@ -2,10 +2,11 @@ import graphene
 from graphene import relay
 from graphql_auth.schema import MeQuery
 from graphene_django.filter import DjangoFilterConnectionField
-from django.db.models import Q, QuerySet
+from django.db.models import Q
 
-from .types import CourseType, OfferType, ClassTimeType, EnrollmentType
-from ..models import Offer, ClassTime, Enrollment
+from .types import CourseType, OfferType, ClassTimeType, EnrollmentType, StudentRequestType
+from ..models import Offer, ClassTime, Enrollment, StudentRequest, Lecturer
+from ..types import UserType
 from ..mail import send_offer_accepted
 
 
@@ -20,7 +21,8 @@ class Query(MeQuery, graphene.ObjectType):
     class_times = DjangoFilterConnectionField(ClassTimeType)
     my_class_times = DjangoFilterConnectionField(ClassTimeType)
     enrollments = DjangoFilterConnectionField(EnrollmentType)
-    matchingOffers = DjangoFilterConnectionField(OfferType)
+    matching_offers = DjangoFilterConnectionField(OfferType)
+    student_requests = DjangoFilterConnectionField(StudentRequestType)
 
     @staticmethod
     def resolve_enrollments(self, info, **kwargs):
@@ -44,7 +46,7 @@ class Query(MeQuery, graphene.ObjectType):
         return Offer.objects.none()
 
     @staticmethod
-    def resolve_matchingOffers(self, info, **kwargs):
+    def resolve_matching_offers(self, info, **kwargs):
         if info.context.user.is_authenticated:
             user = info.context.user
             user_enrollments = list(Enrollment.objects.filter(student=user))
@@ -84,6 +86,18 @@ class Query(MeQuery, graphene.ObjectType):
         if info.context.user.is_authenticated:
             return ClassTime.objects.all()
         return ClassTime.objects.none()
+
+    @staticmethod
+    def resolve_student_requests(self, info, **kwargs):
+        user = info.context.user
+        if not user.is_authenticated or user.user_type != UserType.get_by_name('teacher'):
+            return StudentRequest.objects.none()
+
+        lecturer = Lecturer.objects.filter(account=user).first()
+        if not lecturer:
+            return StudentRequest.objects.none()
+
+        return StudentRequest.objects.filter(lecturer=lecturer)
 
 
 class CreateOfferWithAny(graphene.Mutation):

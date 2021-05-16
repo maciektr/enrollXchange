@@ -3,8 +3,7 @@ from django.contrib.auth import get_user_model
 from graphene import relay
 import graphene
 
-from enroll.models import Course, Lecturer, ClassTime, Enrollment, Offer
-from django.db.models import Q
+from enroll.models import Course, Lecturer, ClassTime, Enrollment, Offer, StudentRequest
 
 
 class UserType(DjangoObjectType):
@@ -84,4 +83,15 @@ class OfferType(DjangoObjectType):
             'enrollment__class_time__start',
             'enrollment__class_time__frequency',
             'enrollment__student__id'
+        ]
+
+
+class StudentRequestType(DjangoObjectType):
+    class Meta:
+        model = StudentRequest
+        interfaces = (relay.Node,)
+        fields = "__all__"
+        filter_fields = [
+            "active",
+            "lecturer__id"
         ]
