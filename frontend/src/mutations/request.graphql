@@ -1,0 +1,15 @@
+mutation requestMutation(
+  $classTimeId: String,
+  $comment: String,
+	$enrollmentId: String,
+) {
+  createRequest(
+    classTimeId: $classTimeId,
+  	comment: $comment,
+    enrollmentId: $enrollmentId
+  ) {
+  	request {
+      id
+    }
+  }
+}

@@ -5,7 +5,7 @@ from graphene_django.filter import DjangoFilterConnectionField
 from django.db.models import Q
 
 from .types import CourseType, OfferType, ClassTimeType, EnrollmentType, StudentRequestType
-from ..models import Offer, ClassTime, Enrollment, StudentRequest, Lecturer
+from ..models import Offer, ClassTime, Enrollment, StudentRequest, Lecturer, User
 from ..types import UserType
 from ..mail import send_offer_accepted
 
@@ -34,7 +34,7 @@ class Query(MeQuery, graphene.ObjectType):
     def resolve_my_class_times(self, info, **kwargs):
         user = info.context.user
         if user.is_authenticated:
-            class_time_ids = Enrollment.objects.filter(student=user)\
+            class_time_ids = Enrollment.objects.filter(student=user) \
                 .values_list("class_time__id", flat=True)
             return ClassTime.objects.filter(id__in=class_time_ids)
         return ClassTime.objects.none()
@@ -71,9 +71,9 @@ class Query(MeQuery, graphene.ObjectType):
             for r in prefiltered_offers:  # temporary(?) solution to filtering by property
                 for e in class_time_fields:
                     if (
-                        r.enrollment.class_time.frequency == e[1]
-                        and r.enrollment.class_time.day == e[0]
-                        and r.enrollment.class_time.end >= e[2]
+                            r.enrollment.class_time.frequency == e[1]
+                            and r.enrollment.class_time.day == e[0]
+                            and r.enrollment.class_time.end >= e[2]
                     ):
                         unwanted_offers_ids.append(r.id)
 
@@ -100,6 +100,63 @@ class Query(MeQuery, graphene.ObjectType):
         return StudentRequest.objects.filter(lecturer=lecturer)
 
 
+class CreateRequest(graphene.Mutation):
+    request = graphene.Field(StudentRequestType)
+
+    class Arguments:
+        enrollment_id = graphene.String()
+        comment = graphene.String()
+        lecturer_id = graphene.String()
+        day = graphene.String()
+        frequency = graphene.String()
+        start = graphene.String()
+        duration = graphene.Int()
+
+    @staticmethod
+    def mutate(
+            root,
+            info,
+            enrollment_id,
+            comment="",
+            lecturer_id=None,
+            day=None,
+            frequency=None,
+            start=None,
+            duration=None,
+    ):
+        _, enrollment_id_real = relay.Node.from_global_id(global_id=enrollment_id)
+        enrollment = Enrollment.objects.get(id=enrollment_id_real)
+
+        class_times = ClassTime.objects.filter(course=enrollment.class_time.course)
+        if lecturer_id is not None:
+            _, lecturer_id_real = relay.Node.from_global_id(global_id=lecturer_id)
+            class_times = class_times.filter(lecturer__id=lecturer_id_real)
+            lecturerUser = User.objects.filter(id=lecturer_id_real).first()
+            lecturer = Lecturer.objects.filter(account=lecturerUser).first()
+        if day is not None:
+            class_times = class_times.filter(day=day)
+        if frequency is not None:
+            class_times = class_times.filter(frequency=frequency)
+        if start is not None:
+            class_times = class_times.filter(start=start)
+        if duration is not None:
+            class_times = class_times.filter(duration_minutes=duration)
+
+        is_active = True
+
+        try:
+            request = StudentRequest.objects.get(enrollment=enrollment)
+        except StudentRequest.DoesNotExist as e:
+            request = StudentRequest.objects.create(
+                enrollment=enrollment, comment=comment, active=is_active, lecturer=lecturer
+            )
+        if is_active:
+            for class_time in class_times:
+                request.exchange_to.add(class_time)
+
+        return CreateRequest(request=request)
+
+
 class CreateOfferWithAny(graphene.Mutation):
     offer = graphene.Field(OfferType)
 
@@ -117,15 +174,15 @@ class CreateOfferWithAny(graphene.Mutation):
 
     @staticmethod
     def mutate(
-        root,
-        info,
-        enrollment_id,
-        comment="",
-        lecturer_id=None,
-        day=None,
-        frequency=None,
-        start=None,
-        duration=None,
+            root,
+            info,
+            enrollment_id,
+            comment="",
+            lecturer_id=None,
+            day=None,
+            frequency=None,
+            start=None,
+            duration=None,
     ):
         _, enrollment_id_real = relay.Node.from_global_id(global_id=enrollment_id)
         enrollment = Enrollment.objects.get(id=enrollment_id_real)
@@ -149,8 +206,8 @@ class CreateOfferWithAny(graphene.Mutation):
         acceptable_wanted_class_time = list(
             filter(
                 lambda x: x.enrollment_set.count()
-                <= (current_class_time.enrollment_set.count() - 1)
-                and x.lecturer == current_class_time.lecturer,
+                          <= (current_class_time.enrollment_set.count() - 1)
+                          and x.lecturer == current_class_time.lecturer,
                 class_times
             )
         )
@@ -199,9 +256,8 @@ class CreateOffer(graphene.Mutation):
         # in destination class_time there are N-1 students (in current N) and
         # both class_times have the same lecturer
         if (
-            class_time.enrollment_set.count()
-            <= (current_class_time.enrollment_set.count() - 1)
-            and class_time.lecturer == current_class_time.lecturer
+                class_time.enrollment_set.count() <= (current_class_time.enrollment_set.count() - 1)
+                and class_time.lecturer == current_class_time.lecturer
         ):
             enrollment.class_time = class_time
             Enrollment.objects.filter(id=enrollment_id_real).update(
@@ -245,17 +301,18 @@ class AcceptOffer(graphene.Mutation):
                 )
 
                 if set(user_to_trade) & set(offer.exchange_to.all()) and not (
-                    set(user_class_times) - set(user_to_trade)
-                ) & {offer.enrollment.class_time}:
+                                                                                     set(user_class_times) - set(
+                                                                                 user_to_trade)
+                                                                             ) & {offer.enrollment.class_time}:
                     offer.active = False
                     user_enrollment = list(
                         filter(
                             lambda x: x.class_time.course
-                            == offer.enrollment.class_time.course,
+                                      == offer.enrollment.class_time.course,
                             user_enrollments,
                         )
                     )[0]
-                    offer.enrollment.student, user_enrollment.student =\
+                    offer.enrollment.student, user_enrollment.student = \
                         user_enrollment.student, offer.enrollment.student
                     try:
                         user_offer = Offer.objects.get(
