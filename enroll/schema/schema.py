@@ -105,54 +105,33 @@ class CreateRequest(graphene.Mutation):
 
     class Arguments:
         enrollment_id = graphene.String()
+        class_time_id = graphene.String()
         comment = graphene.String()
-        lecturer_id = graphene.String()
-        day = graphene.String()
-        frequency = graphene.String()
-        start = graphene.String()
-        duration = graphene.Int()
 
     @staticmethod
     def mutate(
             root,
             info,
             enrollment_id,
-            comment="",
-            lecturer_id=None,
-            day=None,
-            frequency=None,
-            start=None,
-            duration=None,
+            class_time_id,
+            comment=""
     ):
         _, enrollment_id_real = relay.Node.from_global_id(global_id=enrollment_id)
         enrollment = Enrollment.objects.get(id=enrollment_id_real)
 
-        class_times = ClassTime.objects.filter(course=enrollment.class_time.course)
-        if lecturer_id is not None:
-            _, lecturer_id_real = relay.Node.from_global_id(global_id=lecturer_id)
-            class_times = class_times.filter(lecturer__id=lecturer_id_real)
-            lecturerUser = User.objects.filter(id=lecturer_id_real).first()
-            lecturer = Lecturer.objects.filter(account=lecturerUser).first()
-        if day is not None:
-            class_times = class_times.filter(day=day)
-        if frequency is not None:
-            class_times = class_times.filter(frequency=frequency)
-        if start is not None:
-            class_times = class_times.filter(start=start)
-        if duration is not None:
-            class_times = class_times.filter(duration_minutes=duration)
+        _, class_time_id_real = relay.Node.from_global_id(global_id=class_time_id)
+        class_time = Enrollment.objects.get(id=class_time_id_real)
 
-        is_active = True
+        lecturer = enrollment.lecturer
 
         try:
             request = StudentRequest.objects.get(enrollment=enrollment)
         except StudentRequest.DoesNotExist as e:
             request = StudentRequest.objects.create(
-                enrollment=enrollment, comment=comment, active=is_active, lecturer=lecturer
+                enrollment=enrollment, comment=comment, active=True, lecturer=lecturer
             )
-        if is_active:
-            for class_time in class_times:
-                request.exchange_to.add(class_time)
+
+        request.exchange_to.add(class_time)
 
         return CreateRequest(request=request)
 
