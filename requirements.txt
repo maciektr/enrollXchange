@@ -11,3 +11,5 @@ django-graphql-jwt
 black
 django-import-export
 tablib
+factory_boy
+faker
