@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 
 from enroll.schema import types
 from enroll.tests.support import ConnectionTestCase, get_global_id
-from enroll.models import UserType, Lecturer, Enrollment, StudentRequest, ClassTime
+from enroll.models import UserType, Lecturer, Enrollment, StudentRequest, ClassTime, Student
 
 
 class GetStudentRequestsTest(ConnectionTestCase):
@@ -28,10 +28,10 @@ class GetStudentRequestsTest(ConnectionTestCase):
         """
 
     def test_an_example(self):
-        student = get_user_model().objects.create(
+        student_acc = get_user_model().objects.create(
             username="test1", user_type=UserType.get_by_name("student")
         )
-        result = self.execute(self.query, user=student)
+        result = self.execute(self.query, user=student_acc)
         assert result == {"data": {"studentRequests": {"edges": []}}}
 
         teacher = get_user_model().objects.create(
@@ -50,6 +50,10 @@ class GetStudentRequestsTest(ConnectionTestCase):
             start=dt.time(hour=23, minute=59),
             duration_minutes=10,
             seats=0,
+        )
+        student = Student.objects.create(
+            account=student_acc,
+            student_id='123456',
         )
         enrollment = Enrollment.objects.create(
             class_time=ct,

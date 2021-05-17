@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'graphql_auth',
     'django_filters',
+    'import_export',
 
     # Project apps
     'enroll',
