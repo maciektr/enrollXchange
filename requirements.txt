@@ -9,3 +9,5 @@ graphene
 django-graphql-auth
 django-graphql-jwt
 black
+django-import-export
+tablib
