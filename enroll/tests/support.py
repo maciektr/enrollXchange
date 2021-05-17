@@ -23,7 +23,12 @@ class ConnectionTestCase(TestCase):
 
         return TestContext
 
-    def execute(self, query, variables=None, context=None, user=None):
+    def parse_result(self, result):
+        if "data" in result and result["data"]:
+            result["data"] = dict(result["data"])
+        return result
+
+    def run_query(self, query, variables=None, context=None, user=None):
         if not variables:
             variables = {}
         if context:
@@ -33,3 +38,7 @@ class ConnectionTestCase(TestCase):
                 query, variables=variables, context=ConnectionTestCase.get_context(user)
             )
         return self.client.execute(query, variables=variables)
+
+    def execute(self, query, variables=None, context=None, user=None):
+        result = self.run_query(query, variables=variables, context=context, user=user)
+        return self.parse_result(result)

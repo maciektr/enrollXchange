@@ -3,7 +3,14 @@ from django.contrib.auth import get_user_model
 
 from enroll.schema import types
 from enroll.tests.support import ConnectionTestCase, get_global_id
-from enroll.models import UserType, Lecturer, Enrollment, StudentRequest, ClassTime, Student
+from enroll.models import (
+    UserType,
+    Lecturer,
+    Enrollment,
+    StudentRequest,
+    ClassTime,
+    Student,
+)
 
 
 class GetStudentRequestsTest(ConnectionTestCase):
@@ -53,7 +60,7 @@ class GetStudentRequestsTest(ConnectionTestCase):
         )
         student = Student.objects.create(
             account=student_acc,
-            student_id='123456',
+            student_id="123456",
         )
         enrollment = Enrollment.objects.create(
             class_time=ct,
