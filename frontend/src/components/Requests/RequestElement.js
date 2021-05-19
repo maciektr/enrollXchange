@@ -2,11 +2,21 @@ import React, {useState} from "react";
 import {Button, Modal} from "react-bootstrap";
 import {SlideDown} from "react-slidedown";
 import RequestTarget from "./RequestTarget";
+import apollo_client from "../../util/apollo";
+import acceptMutation from "../../mutations/accept_request.graphql"
 
 const RequestElement = ({request}) => {
+    console.log(request)
     const [closed, setClosed] = useState(true);
     const [showInfo, setShowInfo] = useState(false);
     const handleClick = () => setClosed(prevState => !prevState)
+
+    const acceptRequest = () => {
+        apollo_client.mutate({mutation: acceptMutation, variables: {
+            offerId: request.id
+        }}).then(() => setClosed(true))
+    }
+
     return (
         <>
             <div className="row mt-3">
@@ -50,7 +60,7 @@ const RequestElement = ({request}) => {
                     </p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="success" className="mr-3">Akceptuj</Button>
+                    <Button variant="success" className="mr-3" onClick={acceptRequest}>Akceptuj</Button>
                     <Button variant="danger">Odrzuć</Button>
                 </Modal.Footer>
             </Modal>
