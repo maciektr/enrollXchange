@@ -3,12 +3,29 @@ from django.contrib.auth import get_user_model
 from graphene import relay
 import graphene
 
-from enroll.models import Course, Lecturer, ClassTime, Enrollment, Offer, StudentRequest
+from enroll.models import Course, Lecturer, ClassTime, Enrollment, Offer, StudentRequest, Student
 
 
 class UserType(DjangoObjectType):
     class Meta:
         model = get_user_model()
+
+
+class StudentType(DjangoObjectType):
+    class Meta:
+        model = Student
+        interfaces = (relay.Node,)
+        fields = "__all__"
+
+    # first, last, username
+    username = graphene.String()
+
+    def resolve_username(self, info, **kwargs):
+        return self.account.username
+
+    @staticmethod
+    def resolve_all(root, info, **kwargs):
+        return Student.objects.all()
 
 
 class LecturerType(DjangoObjectType):
