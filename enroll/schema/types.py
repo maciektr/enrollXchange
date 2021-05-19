@@ -17,7 +17,6 @@ class StudentType(DjangoObjectType):
         interfaces = (relay.Node,)
         fields = "__all__"
 
-    # first, last, username
     username = graphene.String()
 
     def resolve_username(self, info, **kwargs):
