@@ -265,6 +265,8 @@ class MyMutations(graphene.ObjectType):
     create_offer = CreateOffer.Field()
     accept_offer = AcceptOffer.Field()
     create_offer_with_any = CreateOfferWithAny.Field()
+    create_request = CreateRequest.Field()
+
 
 
 schema = graphene.Schema(query=Query, mutation=MyMutations)
