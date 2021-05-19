@@ -24,6 +24,20 @@ class Accepting(graphene.Mutation):
         pass
 
     @staticmethod
+    def freq_conflicting(a, b):
+        return bool({"every week", "other"} & {a.label, b.label}) or a.label == b.label
+
+    @staticmethod
+    def times_conflicting(a, b):
+        return (a.start < b.end and a.end > b.start) or (b.start < a.end and b.end > a.start)
+
+    @staticmethod
+    def conflicting(a, b):
+        return bool(a.day==b.day and freq_conflicting(a.frequency, b.frequency) and
+            times_conflicting(a, b)
+        )
+
+    @staticmethod
     def user_has_class_time_to_trade(user_classes_to_trade, offer_exchange_to):
         if offer_exchange_to:
             return bool(set(user_classes_to_trade) & set(offer_exchange_to))
@@ -33,7 +47,11 @@ class Accepting(graphene.Mutation):
 
     @staticmethod
     def user_has_collision(user_classes, user_classes_to_trade, offer_time):
-        return bool((set(user_classes) - set(user_classes_to_trade)) & {offer_time})
+        for user_class in set(user_classes) - set(user_classes_to_trade):
+            if conflicting(user_class, offer_time):
+                return True
+        return False
+        # return bool((set(user_classes) - set(user_classes_to_trade)) & {offer_time})
 
     @staticmethod
     def test_user(user):
@@ -63,7 +81,7 @@ class Accepting(graphene.Mutation):
         )
 
     @staticmethod
-    def clean_offers(student, course):
+    def clean_offers(student, course, class_time):
         try:
             user_offer = Offer.objects.get(
                 enrollment__student=student,
@@ -73,6 +91,12 @@ class Accepting(graphene.Mutation):
             user_offer.save(force_update=True)
         except Offer.DoesNotExist as ignored:
             pass
+        offers = list(Offer.objects.filter(enrollment__student=student))
+        for offer in offers:
+            for exchange in offer.exchange_to:
+                if conflicting(exchange, class_time):
+                    offer.remove(exchange)
+                    offer.save()
 
 
 class AcceptOffer(Accepting):
@@ -103,7 +127,7 @@ class AcceptOffer(Accepting):
                 user_enrollments,
             )
         )
-        super().clean_offers(student, course)
+        super().clean_offers(student, course, offer.enrollmnt.class_time)
         offer.enrollment.student, user_enrollment.student = (
             user_enrollment.student,
             offer.enrollment.student,
@@ -136,7 +160,8 @@ class AcceptRequest(Accepting):
         request.enrollment.class_time = request.exchange_to
         request.enrollment.class_time.save()
         request.save()
-        super().clean_offers(student, request.enrollment.class_time.course)
+        super().clean_offers(student, request.enrollment.class_time.course,
+        request.enrollment.class_time)
         send_request_accepted(
             student_mail=student.account.mail,
             lecturer_mail=user.account.mail,
