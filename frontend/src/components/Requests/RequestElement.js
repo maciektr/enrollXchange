@@ -14,7 +14,7 @@ const RequestElement = ({request}) => {
     const acceptRequest = () => {
         apollo_client.mutate({mutation: acceptMutation, variables: {
             offerId: request.id
-        }}).then(() => setClosed(true))
+        }}).then(() => location.reload())
     }
 
     return (
