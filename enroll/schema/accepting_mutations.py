@@ -165,7 +165,7 @@ class AcceptRequest(Accepting, graphene.Mutation):
 
         request.active = False
         request.enrollment.class_time = request.exchange_to.first()
-        request.enrollment.class_time.save()
+        request.enrollment.save()
         request.save()
         Accepting.clean_offers(
             student, request.enrollment.class_time.course, request.enrollment.class_time
