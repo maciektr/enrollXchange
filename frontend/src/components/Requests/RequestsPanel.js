@@ -12,8 +12,6 @@ const RequestsPanel = () => {
             .then(data => parseRequests(data)).then(data => setRequests(data))
     }, [])
 
-    console.log(requests)
-
     return (
         <div className="container mt-4">
             <div className="row-cols-1 text-center">
