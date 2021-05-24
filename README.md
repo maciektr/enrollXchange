@@ -21,7 +21,7 @@ Alternatively, you can follow the [local setup instruction here](https://github.
 Now you can visit [localhost:8000](127.0.0.1:8000) from your browser.
 
 ### Auto-formatter
-We can use [black](https://github.com/psf/black) auto-formatter to seamlessly fix code formatting problems.
+We can use [black](https://www.blacked.com/) auto-formatter to seamlessly fix code formatting problems.
 
 To utilize this solution, please use the command below.
 ```shell
