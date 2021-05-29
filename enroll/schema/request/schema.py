@@ -24,14 +24,16 @@ class CreateRequest(graphene.Mutation):
         _, class_time_id_real = relay.Node.from_global_id(global_id=class_time_id)
         class_time = ClassTime.objects.get(id=class_time_id_real)
 
-        lecturer = enrollment.class_time.lecturer
+        lecturer = class_time.lecturer
 
         try:
-            request = StudentRequest.objects.get(enrollment=enrollment)
+            request = StudentRequest.objects.get(enrollment=enrollment, active=True)
         except StudentRequest.DoesNotExist as e:
             request = StudentRequest.objects.create(
                 enrollment=enrollment, comment=comment, active=True, lecturer=lecturer
             )
+
+        print(request, flush=True)
 
         request.exchange_to.add(class_time)
 
@@ -52,7 +54,7 @@ class AcceptRequest(Accepting, graphene.Mutation):
         if (
             not Accepting.test_user(user := info.context.user)
             or not Accepting.test_active(request)
-            or not request.lecturer.account == user
+            or not request.lecturer.account == info.context.user
             or not Accepting.test_request(request, student)
         ):
             return AcceptRequest(accepted=False)

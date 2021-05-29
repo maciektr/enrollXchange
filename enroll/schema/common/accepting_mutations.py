@@ -87,6 +87,7 @@ class Accepting:
             user_request = StudentRequest.objects.get(
                 enrollment__student=student,
                 enrollment__class_time__course=course,
+                active=True
             )
             user_request.active = False
             user_request.save(force_update=True)
