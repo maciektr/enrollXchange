@@ -39,7 +39,7 @@ class Accepting:
     @staticmethod
     def user_has_collision(user_classes, user_classes_to_trade, offer_time):
         for user_class in set(user_classes) - set(user_classes_to_trade):
-            if Accepting.times_conflicting(user_class, offer_time):
+            if Accepting.class_time_cmp(user_class, offer_time):
                 return True
         return False
 

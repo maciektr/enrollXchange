@@ -95,8 +95,7 @@ class AcceptRequestTest(ConnectionTestCase):
         )
         first_enrollment = factory.EnrollmentFactory(class_time=first_class_time)
         request = factory.StudentRequestFactory(
-            enrollment=first_enrollment,
-            lecturer=accepting_lecturer
+            enrollment=first_enrollment, lecturer=accepting_lecturer
         )
         request.exchange_to.set([user_class_time])
 
@@ -110,5 +109,5 @@ class AcceptRequestTest(ConnectionTestCase):
         self.assertRaises(
             StudentRequest.DoesNotExist,
             StudentRequest.objects.get,
-            **{'enrollment': first_enrollment, 'active': True}
+            **{"enrollment": first_enrollment, "active": True},
         )
