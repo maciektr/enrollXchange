@@ -12,7 +12,7 @@ const OfferElement = ({props}) => {
             mutation: acceptMutation, variables: {
                 offerId: props.id
              }
-        }).then(res => console.log(res)).then(() => location.reload())
+        }).then(res => console.log(res['data']['acceptOffer'])).then(() => location.reload())
         console.log(props.id);
     })
 

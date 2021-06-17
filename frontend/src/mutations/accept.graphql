@@ -2,6 +2,6 @@ mutation acceptMutation(
   $offerId: String
 ) {
   acceptOffer(offerId: $offerId){
-    offerAccepted
+    accepted
   }
 }
